@@ -1,0 +1,12 @@
+*{
+  font-family: poppins, sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  background-color: #242424;
+}

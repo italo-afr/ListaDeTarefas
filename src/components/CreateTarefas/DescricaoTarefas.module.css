@@ -1,0 +1,13 @@
+.DescricaoTarefas {
+  margin-bottom: 24px;
+  flex-grow: 1; /* Faz o conteúdo principal ocupar todo o espaço restante */
+  padding: 10px;
+  overflow-y: auto; /* Adiciona scroll se o conteúdo for grande */
+}
+
+.InputText {
+  width: 100%;
+  padding: 20px;
+  font-size: 2em;
+  box-sizing: border-box;
+}

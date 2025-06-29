@@ -1,0 +1,119 @@
+/* --- Container Principal --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: #2e2e2e;
+  color: #f1f1f1;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden; /* Esconde o conteúdo que transborda horizontalmente */
+  width: 300px;
+}
+
+/* --- Cabeçalho --- */
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 6px;
+}
+
+.menu:hover {
+  cursor: pointer;
+  background-color: #444;
+  padding: 6px;
+  transition: background-color 0.2s;
+  border-radius: 10px;
+}
+
+/* --- Navegação --- */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.navItemPrimary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 12px;
+  color: #f1f1f1;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  border-top: 1px solid #444; /* Borda para tema escuro */
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px;
+  border-radius: 8px;
+  color: #f1f1f1;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.navItem:hover {
+  background-color: #444; /* Cor de hover para tema escuro */
+}
+
+/* --- Rodapé --- */
+.footer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #444; /* Borda para tema escuro */
+  margin-top: auto; 
+}
+
+.navPerfil {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  color: #f1f1f1;
+  text-decoration: none;
+  transition: background-color 0.2s;
+} 
+
+.navPerfil:hover {
+  cursor: pointer;
+  color: #979797;
+  transition: color 0.2s;
+}
+
+.navNotificacao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 6px;
+}
+
+.navNotificacao:hover {
+  cursor: pointer;
+  color: #979797;
+  transition: color 0.2s;
+}
