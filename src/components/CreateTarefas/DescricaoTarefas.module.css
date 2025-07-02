@@ -1,8 +1,24 @@
+.InputContainer{
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  font-size: 1.2em; 
+  font-weight: bold; 
+  text-align: center; 
+}
+
 .DescricaoTarefas {
   margin-bottom: 24px;
   flex-grow: 1; /* Faz o conteúdo principal ocupar todo o espaço restante */
   padding: 10px;
   overflow-y: auto; /* Adiciona scroll se o conteúdo for grande */
+  text-align: center;
+  font-size: 1.2em; 
 }
 
 .InputText {
@@ -11,3 +27,20 @@
   font-size: 2em;
   box-sizing: border-box;
 }
+
+.DataTable { 
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding: 16px;
+  gap: 10px;
+  font-size: 1.2em;
+  background-color: rgb(66, 66, 66);
+  border-radius: 10px;
+  max-width: 500px;
+  max-height: 70vh;
+  overflow-y: auto;
+  margin: 0 auto; /* Centraliza a tabela na tela */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+

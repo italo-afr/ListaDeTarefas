@@ -2,7 +2,14 @@ import styles from './DescricaoTarefas.module.css';
 const DescricaoTarefas = () => {
     return (
         <div className={styles.DescricaoTarefas}>
-            <label className={styles.InputText}>Título da Tarefa</label>
+            <div className={styles.InputContainer}>
+                <label className={styles.InputText}>Tarefas em andamento</label>
+            </div>
+            <div className={styles.DataTable}>
+                <text>Tarefa 1</text>
+                <text>Tarefa 2</text>
+                <text>Tarefa 3</text>
+            </div>
         </div>
     )
 }
