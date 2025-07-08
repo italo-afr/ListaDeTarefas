@@ -1,5 +1,5 @@
 import styles from './DescricaoTarefas.module.css';
-const DescricaoTarefas = () => {
+export function DescricaoTarefas() {
     return (
         <div className={styles.DescricaoTarefas}>
             <div className={styles.InputContainer}>
@@ -14,4 +14,3 @@ const DescricaoTarefas = () => {
     )
 }
 
-export default DescricaoTarefas

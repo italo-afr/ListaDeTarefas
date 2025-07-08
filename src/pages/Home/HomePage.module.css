@@ -1,0 +1,57 @@
+/* src/pages/Home/HomePage.module.css */
+
+.homeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%);
+  color: #f0f0f0;
+  text-align: center;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.content {
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* Espaçamento entre os elementos */
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #a0a0a0;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #6a45d1; /* Um roxo vibrante */
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  margin-top: 1rem;
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  background-color: #7b58e2;
+}

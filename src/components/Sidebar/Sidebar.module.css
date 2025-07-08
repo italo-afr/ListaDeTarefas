@@ -10,6 +10,7 @@
   width: 300px;
 }
 
+
 /* --- Cabeçalho --- */
 .header {
   width: 100%;
@@ -116,4 +117,9 @@
   cursor: pointer;
   color: #979797;
   transition: color 0.2s;
+}
+
+.navItem.active {
+  background-color: #444; /* Ou a cor que você preferir para o item ativo */
+  font-weight: bold;
 }

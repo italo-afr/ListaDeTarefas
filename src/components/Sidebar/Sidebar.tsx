@@ -1,7 +1,15 @@
+// src/components/Sidebar/Sidebar.tsx
+
+import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
-import { UserCircle, Archive, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react'; // https://lucide.dev/icons/archive
+import { UserCircle, Archive, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react';
 
 export const Sidebar = () => {
+  // Função para aplicar a classe ativa. O NavLink nos dá um "isActive"
+  const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
+    return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
+  };
+
   return (
     <div className={styles.sidebar}>
       <header className={styles.header}>
@@ -11,31 +19,32 @@ export const Sidebar = () => {
         </div>
       </header>
       <nav className={styles.nav}>
-        <a href="#" className={styles.navItem}>
+        <NavLink to="/dashboard/nova-tarefa" className={getNavLinkClass}>
           <SquarePlus size={20} />
           <span>Nova Tarefa</span>
-        </a>
-        <a href="#" className={styles.navItem}>
+        </NavLink>
+        <NavLink to="/dashboard/entrada" className={getNavLinkClass}>
           <Inbox size={20} />
           <span>Entrada</span>
-        </a>
-        <a href="#" className={styles.navItem}>
+        </NavLink>
+        <NavLink to="/dashboard/hoje" className={getNavLinkClass}>
           <CalendarClock size={20} />
           <span>Hoje</span>
-        </a>
-        <a href="#" className={styles.navItem}>
+        </NavLink>
+        <NavLink to="/dashboard/concluido" className={getNavLinkClass}>
           <SquareCheckBig size={20} />
           <span>Concluído</span>
-        </a>
-        <a href="#" className={styles.navItem}>
+        </NavLink>
+        <NavLink to="/dashboard/arquivadas" className={getNavLinkClass}>
           <Archive size={20} />
           <span>Arquivadas</span>
-        </a>
-        <a href="#" className={styles.navItem}>
+        </NavLink>
+        <NavLink to="/dashboard/calendario" className={getNavLinkClass}>
           <CalendarDays size={20} />
           <span>Calendário</span>
-        </a>
+        </NavLink>
       </nav>
+
       <nav className={styles.nav}>
         <span className={styles.navItemPrimary}>Minhas tarefas</span>
       </nav>
