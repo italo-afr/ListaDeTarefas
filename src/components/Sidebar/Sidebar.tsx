@@ -5,7 +5,6 @@ import styles from './Sidebar.module.css';
 import { UserCircle, Archive, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react';
 
 export const Sidebar = () => {
-  // Função para aplicar a classe ativa. O NavLink nos dá um "isActive"
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
   };

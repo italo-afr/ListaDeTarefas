@@ -4,12 +4,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/Home/HomePage";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 import { DashboardPage } from "./pages/Dashboard/DashboardPage";
-import { DescricaoTarefas } from "./pages/Dashboard/DescricaoTarefas/DescricaoTarefasPage";
+import { EntradaTarefas } from "./pages/Dashboard/Entrada/EntradaTarefasPage";
 import { NovaTarefaPage } from "./pages/Dashboard/NovaTarefa/NovaTarefaPage";
-import { HojePage } from "./pages/Dashboard/HojePage/HojePage";
-import { ConcluidoPage } from "./pages/Dashboard/ConcluidoPage/ConcluidoPage";
-import { ArquivadasPage } from "./pages/Dashboard/ArquivadasPage/ArquivadasPage";
-import { CalendarioPage } from "./pages/Dashboard/CalendarioPage/CalendarioPage";
+import { HojePage } from "./pages/Dashboard/Hoje/HojePage";
+import { ConcluidoPage } from "./pages/Dashboard/Concluido/ConcluidoPage";
+import { ArquivadasPage } from "./pages/Dashboard/Arquivadas/ArquivadasPage";
+import { CalendarioPage } from "./pages/Dashboard/Calendario/CalendarioPage";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           {/* Sub-rotas para o dashboard */}
           <Route path="nova-tarefa" element={<NovaTarefaPage />} />
-          <Route path="entrada" element={<DescricaoTarefas />} />
+          <Route path="entrada" element={<EntradaTarefas />} />
           <Route path="hoje" element={<HojePage />} />
           <Route path="concluido" element={<ConcluidoPage />} />
           <Route path="arquivadas" element={<ArquivadasPage />} />

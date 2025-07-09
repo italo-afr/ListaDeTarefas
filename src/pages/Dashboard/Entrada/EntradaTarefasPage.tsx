@@ -1,7 +1,7 @@
-import styles from './DescricaoTarefas.module.css';
-export function DescricaoTarefas() {
+import styles from './EntradaTarefas.module.css';
+export function EntradaTarefas() {
     return (
-        <div className={styles.DescricaoTarefas}>
+        <div className={styles.EntradaTarefas}>
             <div className={styles.InputContainer}>
                 <label className={styles.InputText}>Tarefas em andamento</label>
             </div>

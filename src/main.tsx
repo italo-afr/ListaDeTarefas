@@ -7,3 +7,4 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+// Não apagar o arquivo main.tsx, ele é o ponto de entrada da aplicação React.

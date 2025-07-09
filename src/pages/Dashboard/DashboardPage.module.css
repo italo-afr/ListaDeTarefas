@@ -1,0 +1,54 @@
+*{
+  font-family: poppins, sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  background-color: #242424;
+}
+
+.welcomeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ocupa toda a altura da área de conteúdo */
+  text-align: center;
+  color: #c4c4c4;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.iconWrapper {
+  margin-bottom: 1.5rem;
+  color: #6a45d1; /* A mesma cor roxa da home page */
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  max-width: 500px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Animação de entrada suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
