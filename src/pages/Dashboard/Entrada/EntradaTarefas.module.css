@@ -1,46 +1,85 @@
-.InputContainer{
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 10px;
-  background-color: #333;
-  border-radius: 8px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  font-size: 1.2em; 
-  font-weight: bold; 
-  text-align: center; 
+
+.pageContainer {
+  padding: 1rem;
 }
 
-.DescricaoTarefas {
-  margin-bottom: 24px;
-  flex-grow: 1; /* Faz o conteúdo principal ocupar todo o espaço restante */
-  padding: 10px;
-  overflow-y: auto; /* Adiciona scroll se o conteúdo for grande */
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #444;
+  padding-bottom: 1rem;
+}
+
+.centeredMessage {
   text-align: center;
-  font-size: 1.2em; 
+  margin-top: 4rem;
+  font-size: 1.1rem;
+  color: #a0a0a0;
 }
 
-.InputText {
-  width: 100%;
-  padding: 20px;
-  font-size: 2em;
+.taskList {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.taskCard {
+  background-color: #2e2e2e;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.taskCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.taskCard h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f1f1f1;
+  margin: 0 0 0.5rem 0;
+}
+
+.taskCard p {
+  font-size: 1rem;
+  color: #b3b3b3;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+  white-space: pre-wrap; /* Mantém as quebras de linha da descrição */
+  overflow-wrap: break-word;
+}
+
+.taskCard2Layer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskCard button {
+  background-color: #6a45d1; 
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  color: #fff;
+  font-size: 0.8rem;
   box-sizing: border-box;
 }
 
-.DataTable { 
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  padding: 16px;
-  gap: 10px;
-  font-size: 1.2em;
-  background-color: rgb(66, 66, 66);
-  border-radius: 10px;
-  max-width: 500px;
-  max-height: 70vh;
-  overflow-y: auto;
-  margin: 0 auto; /* Centraliza a tabela na tela */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.taskCard button:hover {
+  background-color: #7b58e2; 
+  transition: background-color 0.3s ease;
+}
+
+.dueDate {
+  font-size: 0.9rem;
+  color: #8b70d2; 
+  font-weight: 500;
+  text-align: right;
+  padding-top: 0.55rem;
 }
 

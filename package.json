@@ -16,7 +16,8 @@
     "react": "^19.1.0",
     "react-day-picker": "^9.8.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3"
+    "react-router-dom": "^7.6.3",
+    "react-textarea-autosize": "^8.5.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

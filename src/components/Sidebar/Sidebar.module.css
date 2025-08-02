@@ -8,6 +8,7 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-x: hidden; /* Esconde o conteúdo que transborda horizontalmente */
   width: 300px;
+  flex-shrink: 0;
 }
 
 

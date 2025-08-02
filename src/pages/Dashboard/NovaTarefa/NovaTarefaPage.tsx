@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import TextareaAutosize from 'react-textarea-autosize';
 import { CalendarDays } from 'lucide-react';
 
 export function NovaTarefaPage() {
@@ -28,14 +29,16 @@ export function NovaTarefaPage() {
             date_check: date_check ? date_check.toISOString() : ''
         });
 
-        console.log('Resposta recebida do serviço:', response);
-
-        setTitle('');
-        setDescription('');
-        setDateCheck(undefined);
-
-        navigate('/dashboard/entrada');
-
+        if (response.error) {
+            console.error('Erro ao criar tarefa:', response.error);
+            return;
+        } else {
+            alert('Tarefa criada com sucesso!');
+            setTitle('');
+            setDescription('');
+            setDateCheck(undefined);
+            navigate('/dashboard/entrada');
+        }
     };
 
     // Efeito para fechar o calendário ao clicar fora dele
@@ -51,6 +54,7 @@ export function NovaTarefaPage() {
         };
     }, [datePickerRef]);
 
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.titleForm}>
@@ -64,7 +68,7 @@ export function NovaTarefaPage() {
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
 
                 <label>Descrição</label>
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+                <TextareaAutosize value={description} minRows={3} onChange={(e) => setDescription(e.target.value)} className={styles.autoSizingTextarea} required />
 
                 <div className={styles.formGroup}>
                     <label htmlFor="date-input">Data de Conclusão</label>
@@ -77,7 +81,7 @@ export function NovaTarefaPage() {
                             <div ref={datePickerRef} className={styles.datePickerPopover}>
                                 <DayPicker mode="single" selected={date_check} onSelect={(date) => {
                                     setDateCheck(date); setIsDatePickerOpen(false); // Fecha ao selecionar
-                                }} locale={ptBR} fromYear={new Date().getFullYear()} />
+                                }} locale={ptBR} fromYear={new Date().getFullYear()} showOutsideDays fixedWeeks />
                             </div>
                         )}
                     </div>

@@ -7,10 +7,15 @@ type NewTask = {
 };
 
 export const createTask = async (taskData: NewTask) => {
-    const { data, error } = await supabase
-        .from('tableList')
+    const { data, error } = await supabase.from('tableList')
         .insert([{ title: taskData.title, description: taskData.description, date_check: taskData.date_check }])
-        .select()
-        .single();
+        .select().single();
+    return { data, error };
+};
+
+
+export const getTasks = async () => {
+    const { data, error } = await supabase.from('tableList')
+        .select('*');
     return { data, error };
 };

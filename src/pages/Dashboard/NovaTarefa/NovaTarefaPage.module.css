@@ -25,7 +25,7 @@
   margin-top: 1.5rem;
 }
 
-.form input, .form textarea, .form button {
+.form input, .form textarea {
   width: 100%;
   padding: 12px;
   border-radius: 6px;
@@ -36,22 +36,42 @@
   box-sizing: border-box; 
 }
 
+.autoSizingTextarea {
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #2e2e2e;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: none;
+  line-height: 1.5;
+}
+
 .form label {
   font-weight: bold;
   color: #fff; 
   margin-bottom: -8px; 
 }
 
-.form button {
+.submitButton {
   background-color: #6a45d1; 
   font-weight: bold;
-  cursor: pointer; 
-  margin-top: 1rem;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box; 
 }
 
-.form button:hover {
+.submitButton:hover {
   background-color: #7b58e2; 
+  transition: background-color 0.3s ease;
 }
+
+
 
 /* --- Estilos específicos para o seletor de data --- */
 .datePickerContainer {
@@ -68,7 +88,7 @@
 .dateInputWrapper input {
   width: 100%;
   cursor: pointer;
-  padding-right: 40px; /* Cria espaço para o ícone */
+  padding-right: 40px; 
 }
 
 .calendarIcon {
@@ -87,4 +107,20 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 10;
+}
+
+:global(.rdp-day_selected) {
+  background-color: #6a45d1 !important; /* Nosso roxo */
+  border-radius: 6px !important;       /* Garante um quadrado arredondado */
+  border: none !important;              /* Remove qualquer borda */
+  outline: none !important;             /* Remove o contorno azul do foco */
+  color: #fff !important;               /* Garante que o texto fique branco */
+}
+
+/*
+  Esta regra garante que, mesmo ao passar o mouse sobre o dia já selecionado,
+  ele continue roxo, e não mude de cor.
+*/
+:global(.rdp-day_selected:hover) {
+  background-color: #6a45d1 !important;
 }
