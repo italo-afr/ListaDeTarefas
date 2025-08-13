@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './EntradaTarefas.module.css';
-import { getTasks } from '../../../components/GetSupabase/AllService';
+import { getTasks, updateTaskCompletion } from '../../../components/GetSupabase/AllService';
 import { ptBR } from 'date-fns/locale';
 import { format } from 'date-fns';
+
 export function EntradaTarefas() {
+    const navigate = useNavigate();
 
     interface Task {
         id: number;
@@ -11,7 +14,7 @@ export function EntradaTarefas() {
         description: string;
         date_check: string;
         completed: boolean;
-    };
+    }
 
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState(true);
@@ -31,7 +34,7 @@ export function EntradaTarefas() {
             } else if (data) {
                 setTasks(data);
             }
-            setLoading(false);
+            setLoading(false);           
         };
 
         fetchTasks();
@@ -45,6 +48,19 @@ export function EntradaTarefas() {
         return <div className={styles.centeredMessage}>{error}</div>;
     }
 
+    interface CompletedTaskParams {
+        taskId: number;
+    }
+
+    const completedTask = async (taskId: CompletedTaskParams['taskId']) => {
+        const { error } = await updateTaskCompletion(taskId, true);
+        if (error) {
+            console.error('Erro ao concluir tarefa:', error);
+        } else {
+            console.log(`Tarefa ${taskId} concluída`);
+            navigate('/dashboard/concluido');
+        }
+    }
 
     return (
         <div className={styles.pageContainer}>
@@ -54,18 +70,18 @@ export function EntradaTarefas() {
                 <p className={styles.centeredMessage}>Você ainda não tem tarefas. Crie uma nova!</p>
             ) : (
                 <div className={styles.taskList}>
-                    {/* Usamos .map() para criar um componente para cada tarefa na nossa lista */}
+                    {/* .map() para criar um componente para cada tarefa na nossa lista */}
                     {tasks.map((task) => (
                         <div key={task.id} className={styles.taskCard}>
                             <h2>{task.title}</h2>
                             <p>{task.description}</p>
                             <div className={styles.taskCard2Layer}>
                                 {task.date_check && (
-                                    <div className={styles.dueDate}>
+                                    <div className={styles.termDate}>
                                         <span>Prazo: {format(new Date(task.date_check), 'dd \'de\' MMMM, yyyy', { locale: ptBR })}</span>
                                     </div>
                                 )}
-                                <button>Concluir{task.completed}</button>
+                                <button onClick={() => completedTask(task.id)}>Concluir{task.completed}</button>
                             </div>
                         </div>
                     ))}

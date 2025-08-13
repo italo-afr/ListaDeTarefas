@@ -75,7 +75,7 @@
   transition: background-color 0.3s ease;
 }
 
-.dueDate {
+.termDate {
   font-size: 0.9rem;
   color: #8b70d2; 
   font-weight: 500;

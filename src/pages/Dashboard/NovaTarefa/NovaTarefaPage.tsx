@@ -11,7 +11,9 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { CalendarDays } from 'lucide-react';
 
 export function NovaTarefaPage() {
+    
     const navigate = useNavigate();
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [date_check, setDateCheck] = useState<Date | undefined>(undefined);

@@ -26,10 +26,6 @@ export const Sidebar = () => {
           <Inbox size={20} />
           <span>Entrada</span>
         </NavLink>
-        <NavLink to="/dashboard/hoje" className={getNavLinkClass}>
-          <CalendarClock size={20} />
-          <span>Hoje</span>
-        </NavLink>
         <NavLink to="/dashboard/concluido" className={getNavLinkClass}>
           <SquareCheckBig size={20} />
           <span>Concluído</span>
@@ -44,9 +40,13 @@ export const Sidebar = () => {
         </NavLink>
       </nav>
 
-      <nav className={styles.nav}>
-        <span className={styles.navItemPrimary}>Minhas tarefas</span>
-      </nav>
+      <div className={styles.todayTasks}>
+          <nav className={styles.nav}>
+            <span className={styles.navItemPrimary}>Tarefas de Hoje</span>
+          </nav>
+          <CalendarClock size={20} />
+      </div>
+
       <footer className={styles.footer}>
         <a href="#" className={styles.navPerfil}>
           <UserCircle size={20} />

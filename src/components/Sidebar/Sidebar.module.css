@@ -59,8 +59,7 @@
   text-decoration: none;
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 8px;
-  border-top: 1px solid #444; /* Borda para tema escuro */
+  padding-bottom: 12px;
 }
 
 .navItem {
@@ -76,8 +75,18 @@
 }
 
 .navItem:hover {
-  background-color: #444; /* Cor de hover para tema escuro */
+  background-color: #444;
 }
+
+
+.todayTasks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #444; /* Borda escura acima do tarefas hoje */
+}
+
 
 /* --- Rodapé --- */
 .footer {
@@ -85,7 +94,7 @@
   flex-direction: row;
   gap: 12px;
   padding-top: 8px;
-  border-top: 1px solid #444; /* Borda para tema escuro */
+  border-top: 1px solid #444; /* Borda escura */
   margin-top: auto; 
 }
 

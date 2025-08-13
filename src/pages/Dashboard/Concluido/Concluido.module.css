@@ -1,0 +1,71 @@
+.ConcluidoPage {
+    padding: 1rem;
+
+}
+
+.ConcluidoPage h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 1rem;
+}
+
+.centeredMessage {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 1.1rem;
+    color: #a0a0a0;
+}
+
+.taskList {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.taskCard {
+    background-color: #2e2e2e;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.taskCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.taskCard h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f1f1f1;
+    margin: 0 0 0.5rem 0;
+}
+
+.taskCard p {
+    font-size: 1rem;
+    color: #b3b3b3;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    white-space: pre-wrap; /* Mantém as quebras de linha da descrição */
+    overflow-wrap: break-word;
+}
+
+.taskCard button {
+    background-color: #6a45d1; 
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    color: #fff;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+}
+
+.taskCard button:hover {
+    background-color: #7b58e2; 
+    transition: background-color 0.3s ease;
+}

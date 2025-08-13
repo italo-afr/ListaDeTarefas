@@ -6,7 +6,6 @@ import { DashboardLayout } from "./layouts/DashboardLayout";
 import { DashboardPage } from "./pages/Dashboard/DashboardPage";
 import { EntradaTarefas } from "./pages/Dashboard/Entrada/EntradaTarefasPage";
 import { NovaTarefaPage } from "./pages/Dashboard/NovaTarefa/NovaTarefaPage";
-import { HojePage } from "./pages/Dashboard/Hoje/HojePage";
 import { ConcluidoPage } from "./pages/Dashboard/Concluido/ConcluidoPage";
 import { ArquivadasPage } from "./pages/Dashboard/Arquivadas/ArquivadasPage";
 import { CalendarioPage } from "./pages/Dashboard/Calendario/CalendarioPage";
@@ -22,7 +21,6 @@ function App() {
           {/* Sub-rotas para o dashboard */}
           <Route path="nova-tarefa" element={<NovaTarefaPage />} />
           <Route path="entrada" element={<EntradaTarefas />} />
-          <Route path="hoje" element={<HojePage />} />
           <Route path="concluido" element={<ConcluidoPage />} />
           <Route path="arquivadas" element={<ArquivadasPage />} />
           <Route path="calendario" element={<CalendarioPage />} />
