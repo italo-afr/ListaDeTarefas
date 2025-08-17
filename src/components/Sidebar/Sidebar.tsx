@@ -1,13 +1,25 @@
-// src/components/Sidebar/Sidebar.tsx
-
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { UserCircle, Archive, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react';
+import { supabase } from '../../config/supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 export const Sidebar = () => {
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
   };
+  
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Erro ao fazer logout:', error);
+    } else {
+      navigate('/');
+    }
+  };
+  
 
   return (
     <div className={styles.sidebar}>
@@ -52,6 +64,7 @@ export const Sidebar = () => {
           <UserCircle size={20} />
           <span>Perfil do usuário</span>
         </a>
+          <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
         <div className={styles.navNotificacao}>
           <Bell size={18} />
         </div>

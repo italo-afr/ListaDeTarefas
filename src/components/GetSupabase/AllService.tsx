@@ -7,9 +7,22 @@ type NewTask = {
 };
 
 export const createTask = async (taskData: NewTask) => {
-    const { data, error } = await supabase.from('tableList')
-        .insert([{ title: taskData.title, description: taskData.description, date_check: taskData.date_check }])
-        .select().single();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        console.error("Nenhum utilizador está logado.");
+        return { data: null, error: new Error("Utilizador não autenticado") };
+    }
+    const { data, error } = await supabase
+        .from('tableList')
+        .insert([{
+            title: taskData.title,
+            description: taskData.description,
+            date_check: taskData.date_check,
+            user_id: user.id
+        }])
+        .select()
+        .single();
+    
     return { data, error };
 };
 

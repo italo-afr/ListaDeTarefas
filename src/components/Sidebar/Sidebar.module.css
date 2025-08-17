@@ -98,6 +98,20 @@
   margin-top: auto; 
 }
 
+.logoutButton {
+  background: none;
+  border: none;
+  color: #f1f1f1;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: #444;
+}
+
 .navPerfil {
   display: flex;
   align-items: center;
