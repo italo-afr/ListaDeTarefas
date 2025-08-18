@@ -1,0 +1,76 @@
+.LoginPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; 
+    background-color: #1a1a1a; 
+    padding: 20px;
+    box-sizing: border-box; 
+}
+
+.LoginPage h1 {
+    margin-bottom: 24px;
+    color: #fff;
+    font-size: 2.5rem;
+}
+
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    width: 100%;
+    max-width: 350px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+/* Estilo para cada grupo de label mais o input */
+.LoginLabel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.LoginInput {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.LoginButtonContainer {
+}
+
+.LoginButton {
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.LoginButton:hover {
+    background-color: #005bb5;
+}
+
+.LoginToggle {
+    margin-top: 20px;
+    color: #0084ff;
+    cursor: pointer;
+    text-align: center;
+}
+
+.LoginToggle:hover {
+    text-decoration: underline;
+}

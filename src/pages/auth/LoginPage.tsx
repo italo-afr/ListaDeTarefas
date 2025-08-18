@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../../config/supabaseClient";
-//import styles from './LoginPage.module.css';
+import styles from './Login.module.css';
 
 export function LoginPage() {
   const [name, setName] = useState("");
@@ -29,33 +29,36 @@ export function LoginPage() {
   };
 
   return (
-    <div>
+    <div className={styles.LoginPage}>
       <h1>{isLogin ? "Login" : "Cadastro"}</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.LoginForm}>
         {!isLogin && (
-          <label htmlFor="name">
+          <label htmlFor="name" className={styles.LoginLabel}>
             Nome:
             <input
               type="text"
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
+              className={styles.LoginInput}
             />
           </label>
         )}
 
-        <label htmlFor="emailLogin">
-          Digite seu e-mail:
+        <label htmlFor="emailLogin" className={styles.LoginLabel}>
+          E-mail:
           <input
             type="email"
             id="emailLogin"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className={styles.LoginInput}
           />
         </label>
 
-        <label htmlFor="senhaEmail">
+        <label htmlFor="senhaEmail" className={styles.LoginLabel}>
           Senha:
           <input
             type="password"
@@ -63,12 +66,16 @@ export function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className={styles.LoginInput}
           />
         </label>
-        
-        <input type="submit" value={isLogin ? "Entrar" : "Cadastrar"} />
+        <div className={styles.LoginButtonContainer}>
+          <input type="submit" value={isLogin ? "Entrar" : "Cadastrar"} className={styles.LoginButton} />
+        </div>
       </form>
-      <p onClick={() => setIsLogin(!isLogin)}> {isLogin ? "Não tem uma conta? Cadastre-se" : "Já tem uma conta? Faça login"}</p>
+      <p onClick={() => setIsLogin(!isLogin)} className={styles.LoginToggle}>
+        {isLogin ? "Não tem uma conta? Cadastre-se" : "Já tem uma conta? Faça login"}
+      </p>
     </div>
   );
 }

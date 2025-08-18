@@ -53,10 +53,12 @@ export const Sidebar = () => {
       </nav>
 
       <div className={styles.todayTasks}>
-          <nav className={styles.nav}>
-            <span className={styles.navItemPrimary}>Tarefas de Hoje</span>
+          <nav className={styles.navToday}>
+            <span className={styles.navTodayText}>Tarefas de Hoje</span>
           </nav>
-          <CalendarClock size={20} />
+          <div className={styles.navTodayTasks}>
+            <CalendarClock size={20}/>
+          </div>
       </div>
 
       <footer className={styles.footer}>

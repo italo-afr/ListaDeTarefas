@@ -79,12 +79,26 @@
 }
 
 
+.navToday{
+  display: flex;
+  align-items: center;
+  padding: 6px 0px;
+}
+
+.navTodayText{
+  font-weight: bold;
+  color: #f1f1f1;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
 .todayTasks {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 16px;
   border-top: 1px solid #444; /* Borda escura acima do tarefas hoje */
+  margin-bottom: 16px;
 }
 
 
