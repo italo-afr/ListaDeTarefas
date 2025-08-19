@@ -6,7 +6,6 @@ export function DashboardLayout() {
     return (
         <div className="dashboard-layout">
             <Sidebar />
-
             {/* A área de conteúdo dinâmico */}
             <main className="dashboard-content">
                 <Outlet />

@@ -105,59 +105,62 @@
 /* --- Rodapé --- */
 .footer {
   display: flex;
-  flex-direction: row;
-  gap: 12px;
-  padding-top: 8px;
-  border-top: 1px solid #444; /* Borda escura */
-  margin-top: auto; 
+  align-items: center; 
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid #444;
+  margin-top: auto; /* Empurra o rodapé para a parte de baixo da sidebar */
 }
 
-.logoutButton {
-  background: none;
-  border: none;
-  color: #f1f1f1;
-  cursor: pointer;
-  padding: 12px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
-
-.logoutButton:hover {
-  background-color: #444;
+.userActions {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
 }
 
 .navPerfil {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 12px;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 6px;
   color: #f1f1f1;
   text-decoration: none;
   transition: background-color 0.2s;
-} 
-
-.navPerfil:hover {
-  cursor: pointer;
-  color: #979797;
-  transition: color 0.2s;
+  white-space: nowrap; /* Impede que o nome quebre a linha */
 }
 
+.navPerfil:hover {
+  background-color: #444;
+}
+
+/* Botão de Logout */
+.logoutButton {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: #444;
+  color: #fff; 
+}
+
+/* Sino de notificação */
 .navNotificacao {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-left: auto;
-  padding: 6px;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .navNotificacao:hover {
-  cursor: pointer;
-  color: #979797;
-  transition: color 0.2s;
-}
-
-.navItem.active {
-  background-color: #444; /* Ou a cor que você preferir para o item ativo */
-  font-weight: bold;
+  background-color: #444;
 }

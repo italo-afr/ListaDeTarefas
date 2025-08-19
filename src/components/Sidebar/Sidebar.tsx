@@ -3,13 +3,21 @@ import styles from './Sidebar.module.css';
 import { UserCircle, Archive, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react';
 import { supabase } from '../../config/supabaseClient';
 import { useNavigate } from 'react-router-dom';
+import { getUserProfile } from '../GetSupabase/AllService';
+import { useState, useEffect } from 'react';
 
 export const Sidebar = () => {
+  const [profile, setProfile] = useState<UserProfile>({});
+
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
   };
   
   const navigate = useNavigate();
+
+  interface UserProfile {
+    full_name?: string;
+  }
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -19,7 +27,21 @@ export const Sidebar = () => {
       navigate('/');
     }
   };
-  
+
+  const fetchUserProfile = async () => {
+    const profile = await getUserProfile();
+    if (profile && 'full_name' in profile) {
+      setProfile(profile);
+      console.log("Perfil do usuário:", profile);
+    } else {
+      setProfile({ full_name: '' });
+      console.log("Perfil do usuário não encontrado ou inválido:", profile);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
 
   return (
     <div className={styles.sidebar}>
@@ -62,11 +84,13 @@ export const Sidebar = () => {
       </div>
 
       <footer className={styles.footer}>
-        <a href="#" className={styles.navPerfil}>
-          <UserCircle size={20} />
-          <span>Perfil do usuário</span>
-        </a>
+        <div className={styles.userActions}>
+          <a href="#" className={styles.navPerfil}>
+            <UserCircle size={20} />
+            <span>{profile.full_name}</span>
+          </a>
           <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
+        </div>
         <div className={styles.navNotificacao}>
           <Bell size={18} />
         </div>

@@ -19,7 +19,7 @@ export function LoginPage() {
         alert("O login ocorreu tudo certo!");
       }
     } else {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } });
       if (error) {
         alert("Algum erro aconteceu!");
       } else {

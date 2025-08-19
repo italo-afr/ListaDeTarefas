@@ -6,6 +6,7 @@ type NewTask = {
     date_check: string;
 };
 
+// Cria as tarefas
 export const createTask = async (taskData: NewTask) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
@@ -26,6 +27,7 @@ export const createTask = async (taskData: NewTask) => {
     return { data, error };
 };
 
+// Traz as tarefas pendentes
 export const getTasks = async () => {
     const { data, error } = await supabase.from('tableList')
         .select('*')
@@ -34,6 +36,7 @@ export const getTasks = async () => {
     return { data, error };
 };
 
+// Traz as tarefas concluídas
 export const getTasksCompletion = async () => {
     const { data, error } = await supabase.from('tableList')
         .select('*')
@@ -42,6 +45,7 @@ export const getTasksCompletion = async () => {
     return { data, error };
 };
 
+// Atualiza o status de conclusão da tarefa
 export const updateTaskCompletion = async (taskId: number, completed: boolean) => {
     const { data, error } = await supabase.from('tableList')
         .update({ completed })
@@ -49,9 +53,30 @@ export const updateTaskCompletion = async (taskId: number, completed: boolean) =
     return { data, error };
 };
 
+
+// Deleta uma tarefa
 export const deleteTask = async (taskId: number) => {
     const { data, error } = await supabase.from('tableList')
         .delete()
         .eq('id', taskId);
     return { data, error };
+};
+
+// Busca o perfil do usuário
+export const getUserProfile = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+        console.error("Nenhum utilizador está logado.");
+        return { data: null, error: new Error("Utilizador não autenticado") };
+    }
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('full_name')
+        .eq('id', user.id)
+        .single();
+    if (error) {
+        console.error("Erro ao buscar o perfil do usuário:", error);
+        return null;
+    }
+    return data;
 };
