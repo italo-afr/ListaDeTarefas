@@ -64,10 +64,11 @@ export const Sidebar = () => {
           <SquareCheckBig size={20} />
           <span>Concluído</span>
         </NavLink>
-        <NavLink to="/dashboard/arquivadas" className={getNavLinkClass}>
+        {/* <NavLink to="/dashboard/arquivadas" className={getNavLinkClass}>
           <Archive size={20} />
           <span>Arquivadas</span>
         </NavLink>
+        */}
         <NavLink to="/dashboard/calendario" className={getNavLinkClass}>
           <CalendarDays size={20} />
           <span>Calendário</span>
