@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { supabase } from "../../config/supabaseClient";
 import styles from './Login.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export function LoginPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,14 +19,17 @@ export function LoginPage() {
       if (error) {
         alert("Algum erro aconteceu! " + error.message);
       } else {
-        alert("O login ocorreu tudo certo!");
+        navigate('/dashboard');
       }
     } else {
-      const { error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } });
+      const { data: signUpData, error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } });
       if (error) {
-        alert("Algum erro aconteceu!");
-      } else {
-        alert("O cadastro ocorreu tudo certo!");
+        alert("Erro no cadastro: " + error.message);
+      } else if (signUpData.user?.identities?.length === 0) {
+        alert("Este e-mail já está em uso, mas não foi confirmado. Por favor, verifique a sua caixa de entrada.");
+      }
+      else {
+        alert("Cadastro realizado! Por favor, verifique o seu e-mail para confirmar a conta antes de fazer o login.");
       }
     }
   };

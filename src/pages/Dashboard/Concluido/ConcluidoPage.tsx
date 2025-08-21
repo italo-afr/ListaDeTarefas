@@ -1,7 +1,7 @@
 import styles from './Concluido.module.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTasksCompletion, updateTaskCompletion } from '../../../components/GetSupabase/AllService';
+import { deleteTask, getTasksCompletion, updateTaskCompletion } from '../../../components/GetSupabase/AllService';
 
 export function ConcluidoPage() {
 
@@ -56,6 +56,15 @@ export function ConcluidoPage() {
             }
         };
 
+        const deleteTasks = async (taskId: number) => {
+                const result = await deleteTask(taskId);
+                if (result && result.error) {
+                    console.error('Erro ao deletar tarefa:', result.error);
+                } else {
+                    navigate('/dashboard');
+                }
+            };
+
     return (
         <div className={styles.ConcluidoPage}>
             <h1 className={styles.pageTitle}>Tarefas Concluídas</h1>
@@ -69,7 +78,10 @@ export function ConcluidoPage() {
                             <div key={task.id} className={styles.taskCard}>
                                 <h2>{task.title}</h2>
                                 <p>{task.description}</p>
-                                <button onClick={() => noCompletedTasks(task.id)}>Desfazer{task.completed}</button>
+                                <div className={styles.taskActions}>
+                                    <button onClick={() => noCompletedTasks(task.id)}>Desfazer{task.completed}</button>
+                                    <button onClick={() => deleteTasks(task.id)}>Deletar</button>
+                                </div>
                             </div>
                         ))}
                     </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './EntradaTarefas.module.css';
-import { getTasks, updateTaskCompletion } from '../../../components/GetSupabase/AllService';
+import { getTasks, updateTaskCompletion, deleteTask } from '../../../components/GetSupabase/AllService';
 import { ptBR } from 'date-fns/locale';
 import { format } from 'date-fns';
 
@@ -62,6 +62,15 @@ export function EntradaTarefas() {
         }
     }
 
+    const deleteTasks = async (taskId: number) => {
+        const result = await deleteTask(taskId);
+        if (result && result.error) {
+            console.error('Erro ao deletar tarefa:', result.error);
+        } else {
+            navigate('/dashboard');
+        }
+    }
+
     return (
         <div className={styles.pageContainer}>
             <h1 className={styles.pageTitle}>Caixa de Entrada</h1>
@@ -81,7 +90,10 @@ export function EntradaTarefas() {
                                         <span>Prazo: {format(new Date(task.date_check), 'dd \'de\' MMMM, yyyy', { locale: ptBR })}</span>
                                     </div>
                                 )}
-                                <button onClick={() => completedTask(task.id)}>Concluir{task.completed}</button>
+                                <div className={styles.taskActions}>
+                                    <button onClick={() => completedTask(task.id)}>Concluir</button>
+                                    <button onClick={() => deleteTasks(task.id)}>Deletar</button>
+                                </div>
                             </div>
                         </div>
                     ))}

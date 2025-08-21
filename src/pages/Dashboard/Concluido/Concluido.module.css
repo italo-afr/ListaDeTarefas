@@ -53,6 +53,11 @@
     overflow-wrap: break-word;
 }
 
+.taskActions {
+  display: flex;
+  gap: 0.6rem;
+}
+
 .taskCard button {
     background-color: #6a45d1; 
     font-weight: bold;
@@ -69,3 +74,4 @@
     background-color: #7b58e2; 
     transition: background-color 0.3s ease;
 }
+

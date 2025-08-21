@@ -57,6 +57,11 @@
   justify-content: space-between;
 }
 
+.taskActions {
+  display: flex;
+  gap: 0.6rem;
+}
+
 .taskCard button {
   background-color: #6a45d1; 
   font-weight: bold;
