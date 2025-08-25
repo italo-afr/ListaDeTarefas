@@ -1,0 +1,16 @@
+.title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.calendarContainer {
+    height: 70vh;
+    margin: 20px 0;
+    overflow-y: auto;
+}
