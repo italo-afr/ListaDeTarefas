@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import styles from './Calendario.module.css';
 
 type Tarefa = {
-  title: string;
+  title: string; 
   created_at: string;
   date_check: string | null; 
 };
@@ -45,9 +45,9 @@ export function CalendarioPage() {
     }));
 
   return (
-    <div>
-      <h1 className={styles.title}>Calendário</h1>
-      <p className={styles.description}>Visualização de todas as tarefas em um calendário.</p>
+    <div className={styles.pageContainer}>
+      <h1>Calendário</h1>
+      <p>Visualização de todas as tarefas em um calendário.</p>
       <div className={styles.calendarContainer}>
         <Calendar
           localizer={localizer}
@@ -61,6 +61,7 @@ export function CalendarioPage() {
             month: "Mês",
             week: "Semana",
             day: "Dia",
+            agenda: "Agenda",
             date: "Data",
             time: "Hora",
             event: "Evento",
