@@ -1,69 +1,142 @@
-# React + TypeScript + Vite
+<h1>Gerenciador de Tarefas Moderno</h1>
+    <blockquote>
+        <p>Um sistema de gestão de tarefas completo, construído com tecnologias modernas, focado em segurança, performance e uma excelente experiência de utilizador. Este projeto demonstra um fluxo de trabalho de desenvolvimento full-stack usando React para o frontend e Supabase como backend.</p>
+    </blockquote>
+    
+  <h2>✨ Funcionalidades</h2>
+    <ul>
+        <li><strong>Autenticação Segura de Utilizadores:</strong> Sistema completo de registo, login e logout.</li>
+        <li><strong>Gestão de Tarefas Multi-Utilizador:</strong> Cada utilizador só pode ver e gerir as suas próprias tarefas, garantido por Row Level Security (RLS) no Supabase.</li>
+        <li><strong>Operações CRUD de Tarefas:</strong> Crie, leia, atualize (ex: marcar como concluída) e apague tarefas.</li>
+        <li><strong>Perfis de Utilizador:</strong> Cada utilizador tem um perfil com o seu nome, que é criado automaticamente no registo.</li>
+        <li><strong>Visualização em Calendário:</strong> As tarefas com data de conclusão são exibidas num calendário interativo.</li>
+        <li><strong>Interface Reativa:</strong> Construído como uma Single-Page Application (SPA) com rotas protegidas.</li>
+        <li><strong>Notificações Toast:</strong> Feedbacks visuais para ações do utilizador, como limites de caracteres.</li>
+        <li><strong>Deploy Contínuo:</strong> Configurado para deploy automático na plataforma Render através do GitHub.</li>
+    </ul>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  <hr>
 
-Currently, two official plugins are available:
+  <h2>🚀 Tecnologias Utilizadas</h2>
+    <h4>Frontend:</h4>
+    <ul>
+        <li><strong>React</strong> (com Hooks e Componentes Funcionais)</li>
+        <li><strong>Vite</strong> como ambiente de desenvolvimento e build</li>
+        <li><strong>TypeScript</strong> para tipagem estática</li>
+        <li><strong>React Router</strong> para roteamento de páginas</li>
+        <li><strong>CSS Modules</strong> para estilização</li>
+    </ul>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <h4>Backend (BaaS - Backend as a Service):</h4>
+    <ul>
+        <li><strong>Supabase</strong>
+            <ul>
+                <li><strong>Database:</strong> PostgreSQL</li>
+                <li><strong>Authentication:</strong> Gestão de utilizadores e sessões</li>
+                <li><strong>Security:</strong> Row Level Security (RLS)</li>
+            </ul>
+        </li>
+    </ul>
 
-## Expanding the ESLint configuration
+  <h4>Bibliotecas Principais:</h4>
+    <ul>
+        <li><code>react-big-calendar</code>: Para a funcionalidade de calendário.</li>
+        <li><code>lucide-react</code>: Para ícones.</li>
+        <li><code>react-hot-toast</code>: Para notificações pop-up.</li>
+    </ul>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  <h4>Plataforma de Deploy:</h4>
+    <ul>
+        <li><strong>Render</strong></li>
+    </ul>
+    
+  <hr>
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  <h3>Pré-requisitos</h3>
+    <ul>
+        <li>Node.js (versão 18 ou superior)</li>
+        <li><code>npm</code> ou <code>yarn</code></li>
+        <li>Uma conta no <a href="https://supabase.com/" target="_blank">Supabase</a> (o plano gratuito é suficiente)</li>
+    </ul>
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+  <h3>1. Configure o Projeto Supabase</h3>
+    <ol>
+        <li><strong>Crie um novo projeto</strong> no seu painel do Supabase.</li>
+        <li><strong>Guarde as suas chaves de API:</strong>
+            <ul>
+                <li>Vá para <strong>Project Settings</strong> (ícone de engrenagem) > <strong>API</strong>.</li>
+                <li>Copie o <code>Project URL</code> e a chave <code>anon public</code>. Vamos precisar delas mais tarde.</li>
+            </ul>
+        </li>
+        <li><strong>Execute o SQL para criar as tabelas:</strong>
+            <p>Vá para o <strong>SQL Editor</strong> (ícone de <code>&lt;/&gt;</code>). Clique em "<strong>New query</strong>" e cole o código abaixo para criar a tabela <code>tableList</code>. Depois, clique em <strong>RUN</strong>.</p>
+  
+  <pre> <code>-- Criar a tabela de tarefas
+      
+                    CREATE TABLE public.tableList (
+                      id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+                      created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+                      title TEXT NOT NULL,
+                      description TEXT,
+                      completed BOOLEAN DEFAULT FALSE NOT NULL,
+                      date_check TIMESTAMPTZ,
+                      user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL
+                    );
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+-- Ativar a Row Level Security
+ALTER TABLE public.tableList ENABLE ROW LEVEL SECURITY;</code></pre>
+  <p>Crie outra "<strong>New query</strong>" e cole o código abaixo para criar a tabela <code>profiles</code>. Depois, clique em <strong>RUN</strong>.</p>
+   <pre><code>-- Criar a tabela de perfis
+CREATE TABLE public.profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  full_name TEXT,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-- Ativar a Row Level Security
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;</code></pre>
+        </li>
+        <li><strong>Crie as Políticas de Segurança (RLS):</strong>
+            <p>Vá para <strong>Authentication</strong> > <strong>Policies</strong>. Crie as políticas para <code>tableList</code> e <code>profiles</code> (permitindo que os utilizadores apenas acedam aos seus próprios dados). Por exemplo: <code>(select auth.uid()) = user_id</code> para <code>tableList</code> e <code>(select auth.uid()) = id</code> para <code>profiles</code>.</p>
+        </li>
+        <li><strong>Crie o Trigger para Perfis Automáticos:</strong>
+            <p>No <strong>SQL Editor</strong>, execute a função e o trigger abaixo.</p>
+            <pre><code>-- 1. A Função
+create function public.create_public_profile_for_user()
+returns trigger 
+language plpgsql 
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, full_name)
+  values (new.id, new.raw_user_meta_data->>'full_name');
+  return new;
+end;
+$$;
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+-- 2. O Trigger
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.create_public_profile_for_user();</code></pre>
+        </li>
+    </ol>
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  <h3>2. Configure o Projeto Localmente</h3>
+    <ol>
+        <li><strong>Clone o repositório:</strong>
+            <pre><code>git clone [URL_DO_SEU_REPOSITORIO_AQUI]
+cd [NOME_DA_PASTA_DO_PROJETO]</code></pre>
+        </li>
+        <li><strong>Instale as dependências:</strong>
+            <pre><code>npm install</code></pre>
+        </li>
+        <li><strong>Configure as Variáveis de Ambiente:</strong>
+            <p>Crie um ficheiro chamado <code>.env.local</code> na raiz do projeto e adicione as chaves do Supabase:</p>
+            <pre><code>VITE_SUPABASE_URL=COLE_A_SUA_PROJECT_URL_AQUI
+VITE_SUPABASE_ANON_KEY=COLE_A_SUA_CHAVE_ANON_PUBLIC_AQUI</code></pre>
+        </li>
+        <li><strong>Rode o projeto:</strong>
+            <pre><code>npm run dev</code></pre>
+        </li>
+    </ol>
+    <p>Se tudo correu bem, ao aceder a <code>http://localhost:5173</code> no seu navegador, você deverá ver a página inicial da aplicação.</p>
