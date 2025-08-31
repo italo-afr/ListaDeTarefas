@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 
 export const Sidebar = () => {
   const [profile, setProfile] = useState<UserProfile>({});
+  const [layersVisible, setLayersVisible] = useState(false);
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
@@ -44,10 +45,10 @@ export const Sidebar = () => {
   }, []);
 
   return (
-    <div className={styles.sidebar}>
+    <div className={`${styles.sidebar} ${!layersVisible ? styles.sidebarClosed : ''}`}>
       <header className={styles.header}>
         <h1 className={styles.title}>Gerenciando Tarefas</h1>
-        <div className={styles.menu}>
+        <div className={styles.menu} onClick={() => setLayersVisible(!layersVisible)}>
           <PanelLeft size={20} />
         </div>
       </header>

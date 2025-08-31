@@ -9,8 +9,30 @@
   overflow-x: hidden; /* Esconde o conteúdo que transborda horizontalmente */
   width: 300px;
   flex-shrink: 0;
+  transition: width 0.3s ease-in-out;
 }
 
+/* --- Sidebar Fechada --- */
+
+.sidebarClosed {
+  width: 78px; /* Largura da sidebar fechada, para mostrar apenas os ícones */
+}
+
+.sidebarClosed span,
+.sidebarClosed h1,
+.sidebarClosed .todayTasks span,
+.sidebarClosed .logoutButton,
+.sidebarClosed .navNotificacao {
+  display: none;
+}
+
+.sidebarClosed .navItem,
+.sidebarClosed .navPerfil,
+.sidebarClosed .todayTasks,
+.sidebarClosed .navPerfil,
+.sidebarClosed .menu {
+  justify-content: center;
+}
 
 /* --- Cabeçalho --- */
 .header {
