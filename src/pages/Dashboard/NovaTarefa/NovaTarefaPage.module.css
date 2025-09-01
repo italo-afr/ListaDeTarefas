@@ -71,11 +71,19 @@
   transition: background-color 0.3s ease;
 }
 
-
-
 /* --- Estilos específicos para o seletor de data --- */
+.formGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.formStartDate,
+.formFinishDate {
+  flex: 1;
+}
+
 .datePickerContainer {
-  position: relative; 
+  position: relative;
 }
 
 .dateInputWrapper {
@@ -110,7 +118,7 @@
 }
 
 :global(.rdp-day_selected) {
-  background-color: #6a45d1 !important; /* Nosso roxo */
+  background-color: #6a45d1 !important; /* Roxo padrão */
   border-radius: 6px !important;       /* Garante um quadrado arredondado */
   border: none !important;              /* Remove qualquer borda */
   outline: none !important;             /* Remove o contorno azul do foco */

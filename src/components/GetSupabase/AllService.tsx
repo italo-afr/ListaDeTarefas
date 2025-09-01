@@ -3,7 +3,8 @@ import { supabase } from "../../config/supabaseClient";
 type NewTask = {
     title: string;
     description: string;
-    date_check: string;
+    finish_date: string;
+    start_date: string;
 };
 
 // Cria as tarefas
@@ -18,7 +19,8 @@ export const createTask = async (taskData: NewTask) => {
         .insert([{
             title: taskData.title,
             description: taskData.description,
-            date_check: taskData.date_check,
+            finish_date: taskData.finish_date,
+            start_date: taskData.start_date,
             user_id: user.id
         }])
         .select()

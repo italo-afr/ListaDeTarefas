@@ -7,8 +7,8 @@ import styles from './Calendario.module.css';
 
 type Tarefa = {
   title: string; 
-  created_at: string;
-  date_check: string | null; 
+  start_date: string;
+  finish_date: string | null; 
 };
 
 export function CalendarioPage() {
@@ -35,12 +35,12 @@ export function CalendarioPage() {
   // Transforma as tarefas em eventos para o calendário
   const eventos = tarefas
     // Filtro para usar apenas tarefas que tenham uma data de fim
-    .filter(tarefa => tarefa.date_check) 
+    .filter(tarefa => tarefa.start_date)
     // Mapea o resultado para o formato correto
     .map(tarefa => ({
       title: tarefa.title,
-      start: new Date(tarefa.created_at),
-      end: new Date(tarefa.date_check!),
+      start: new Date(tarefa.start_date),
+      end: new Date(tarefa.finish_date || tarefa.start_date),
       allDay: false
     }));
 

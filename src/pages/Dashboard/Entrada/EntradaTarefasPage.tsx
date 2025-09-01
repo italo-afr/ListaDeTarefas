@@ -12,7 +12,8 @@ export function EntradaTarefas() {
         id: number;
         title: string;
         description: string;
-        date_check: string;
+        finish_date: string;
+        start_date: string;
         completed: boolean;
     }
 
@@ -85,11 +86,12 @@ export function EntradaTarefas() {
                             <h2>{task.title}</h2>
                             <p>{task.description}</p>
                             <div className={styles.taskCard2Layer}>
-                                {task.date_check && (
+                                {task.finish_date && (
                                     <div className={styles.termDate}>
-                                        <span>Prazo: {format(new Date(task.date_check), 'dd \'de\' MMMM, yyyy', { locale: ptBR })}</span>
+                                        <span>Prazo: {format(new Date(task.finish_date), 'dd \'de\' MMMM, yyyy', { locale: ptBR })}</span>
                                     </div>
                                 )}
+                                
                                 <div className={styles.taskActions}>
                                     <button onClick={() => completedTask(task.id)}>Concluir</button>
                                     <button onClick={() => deleteTasks(task.id)}>Deletar</button>

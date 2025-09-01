@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 export const Sidebar = () => {
   const [profile, setProfile] = useState<UserProfile>({});
-  const [layersVisible, setLayersVisible] = useState(false);
+  const [layersVisible, setLayersVisible] = useState(true);
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;

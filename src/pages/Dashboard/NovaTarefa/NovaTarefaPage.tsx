@@ -16,8 +16,9 @@ export function NovaTarefaPage() {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [date_check, setDateCheck] = useState<Date | undefined>(undefined);
-    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+    const [start_date, setStartDate] = useState<Date | undefined>(undefined);
+    const [finish_date, setFinishDate] = useState<Date | undefined>(undefined);
+    const [openDatePicker, setOpenDatePicker] = useState<string | null>(null);
     const datePickerRef = useRef<HTMLDivElement>(null);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,7 +29,8 @@ export function NovaTarefaPage() {
         const response = await createTask({
             title: title,
             description: description,
-            date_check: date_check ? date_check.toISOString() : ''
+            start_date: start_date ? start_date.toISOString() : '',
+            finish_date: finish_date ? finish_date.toISOString() : ''
         });
 
         if (response.error) {
@@ -38,7 +40,8 @@ export function NovaTarefaPage() {
             alert('Tarefa criada com sucesso!');
             setTitle('');
             setDescription('');
-            setDateCheck(undefined);
+            setStartDate(undefined);
+            setFinishDate(undefined);
             navigate('/dashboard/entrada');
         }
     };
@@ -47,7 +50,7 @@ export function NovaTarefaPage() {
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
-                setIsDatePickerOpen(false);
+                setOpenDatePicker(null);
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -71,21 +74,38 @@ export function NovaTarefaPage() {
 
                 <label>Descrição</label>
                 <TextareaAutosize value={description} minRows={3} onChange={(e) => setDescription(e.target.value)} className={styles.autoSizingTextarea} required />
-
                 <div className={styles.formGroup}>
-                    <label htmlFor="date-input">Data de Conclusão</label>
-                    <div className={styles.datePickerContainer}>
-                        <div className={styles.dateInputWrapper} onClick={() => setIsDatePickerOpen(true)}>
-                            <input id="date-input" type="text" readOnly value={date_check ? format(date_check, 'dd/MM/yyyy') : ''} placeholder="Selecione uma data" />
-                            <CalendarDays size={20} className={styles.calendarIcon} />
-                        </div>
-                        {isDatePickerOpen && (
-                            <div ref={datePickerRef} className={styles.datePickerPopover}>
-                                <DayPicker mode="single" selected={date_check} onSelect={(date) => {
-                                    setDateCheck(date); setIsDatePickerOpen(false); // Fecha ao selecionar
-                                }} locale={ptBR} fromYear={new Date().getFullYear()} showOutsideDays fixedWeeks />
+                    <div className={styles.formStartDate}>
+                        <label htmlFor="date-input">Início</label>
+                        <div className={styles.datePickerContainer}>
+                            <div className={styles.dateInputWrapper} onClick={() => setOpenDatePicker('start')}>
+                                <input id="date-input" type="text" readOnly value={start_date ? format(start_date, 'dd/MM/yyyy') : ''} placeholder="Selecione uma data" />
+                                <CalendarDays size={20} className={styles.calendarIcon} />
                             </div>
-                        )}
+                            {openDatePicker === 'start' && (
+                                <div ref={datePickerRef} className={styles.datePickerPopover}>
+                                    <DayPicker mode="single" selected={start_date} onSelect={(date) => {
+                                        setStartDate(date); setOpenDatePicker(null); // Fecha ao selecionar
+                                    }} locale={ptBR} fromYear={new Date().getFullYear()} showOutsideDays fixedWeeks />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className={styles.formFinishDate}>
+                        <label htmlFor="date-input">Conclusão</label>
+                        <div className={styles.datePickerContainer}>
+                            <div className={styles.dateInputWrapper} onClick={() => setOpenDatePicker('finish')}>
+                                <input id="date-input" type="text" readOnly value={finish_date ? format(finish_date, 'dd/MM/yyyy') : ''} placeholder="Selecione uma data" />
+                                <CalendarDays size={20} className={styles.calendarIcon} />
+                            </div>
+                            {openDatePicker === 'finish' && (
+                                <div ref={datePickerRef} className={styles.datePickerPopover}>
+                                    <DayPicker mode="single" selected={finish_date} onSelect={(date) => {
+                                        setFinishDate(date); setOpenDatePicker(null); // Fecha ao selecionar
+                                    }} locale={ptBR} fromYear={new Date().getFullYear()} showOutsideDays fixedWeeks />
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 
