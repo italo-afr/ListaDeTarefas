@@ -50,7 +50,6 @@ export function EntradaTarefas() {
         };
     }, [isModalOpen]);
     
-    // Funções de loading e erro (sem alterações)
     if (loading) {
         return <div className={styles.centeredMessage}>Carregando tarefas...</div>;
     }
@@ -58,15 +57,16 @@ export function EntradaTarefas() {
         return <div className={styles.centeredMessage}>{error}</div>;
     }
 
-    // Funções de concluir e deletar (sem alterações)
     const completedTask = async (taskId: number) => {
-        const { error } = await updateTaskCompletion(taskId, true);
+        const completedAt = new Date().toISOString();
+        const { error } = await updateTaskCompletion(taskId, true, completedAt);
         if (error) {
             console.error('Erro ao concluir tarefa:', error);
         } else {
             window.location.reload();
         }
     };
+    
     const deleteTasks = async (taskId: number) => {
         const { error } = await deleteTask(taskId);
         if (error) {

@@ -22,6 +22,7 @@
 .taskList {
     display: grid;
     gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 }
 
 .taskCard {
@@ -44,13 +45,17 @@
     margin: 0 0 0.5rem 0;
 }
 
-.taskCard p {
-    font-size: 1rem;
-    color: #b3b3b3;
-    line-height: 1.6;
-    margin: 0 0 1rem 0;
-    white-space: pre-wrap; /* Mantém as quebras de linha da descrição */
-    overflow-wrap: break-word;
+.taskDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.taskInfo {
+    flex-grow: 1;
+    margin-right: 1rem;
+    color: yellowgreen;
 }
 
 .taskActions {

@@ -48,9 +48,9 @@ export const getTasksCompletion = async () => {
 };
 
 // Atualiza o status de conclusão da tarefa
-export const updateTaskCompletion = async (taskId: number, completed: boolean) => {
+export const updateTaskCompletion = async (taskId: number, completed: boolean, completed_at: string | null) => {
     const { data, error } = await supabase.from('tableList')
-        .update({ completed })
+        .update({ completed, completed_at })
         .eq('id', taskId);
     return { data, error };
 };
