@@ -1,10 +1,12 @@
 .dashboard-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .dashboard-content {
   flex-grow: 1;
   padding: 2rem;
+  overflow-y: auto;
   background-color: #202020; /* Cor de fundo do conteúdo a direita da sidebar */
 }

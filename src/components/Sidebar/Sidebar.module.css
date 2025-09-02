@@ -7,7 +7,9 @@
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-x: hidden; /* Esconde o conteúdo que transborda horizontalmente */
-  width: 300px;
+  flex-grow: 0; /* Impede que a sidebar cresça além do necessário */
+  max-height: 100vh; 
+  overflow-y: auto;
   flex-shrink: 0;
   transition: width 0.3s ease-in-out;
 }
@@ -21,7 +23,8 @@
 .sidebarClosed .title,
 .sidebarClosed span,
 .sidebarClosed .logoutButton,
-.sidebarClosed .navNotificacao {
+.sidebarClosed .navNotificacao,
+.sidebarClosed .todayTasksList {
   display: none;
 }
 
@@ -128,6 +131,24 @@
   margin-bottom: 16px;
 }
 
+.todayTasksList {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 6px;
+}
+
+.todayTask {
+  padding: 8px 12px;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  background-color: #3a3a3a;
+}
+
+.todayTask span {
+  font-size: 0.95rem;
+  color: #f1f1f1;
+}
 
 /* --- Rodapé --- */
 .footer {

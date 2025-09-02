@@ -1,11 +1,8 @@
 import styles from './Concluido.module.css'
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { deleteTask, getTasksCompletion, updateTaskCompletion } from '../../../components/GetSupabase/AllService';
 
 export function ConcluidoPage() {
-
-    const navigate = useNavigate();
 
     interface Task {
             id: number;
@@ -52,7 +49,7 @@ export function ConcluidoPage() {
             if (error) {
                 console.error('Erro ao desfazer tarefa:', error);
             } else {
-                navigate('/dashboard/entrada');
+                window.location.reload();
             }
         };
 
@@ -61,7 +58,7 @@ export function ConcluidoPage() {
                 if (result && result.error) {
                     console.error('Erro ao deletar tarefa:', result.error);
                 } else {
-                    navigate('/dashboard');
+                    window.location.reload();
                 }
             };
 

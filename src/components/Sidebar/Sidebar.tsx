@@ -3,18 +3,26 @@ import styles from './Sidebar.module.css';
 import { UserCircle, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react';
 import { supabase } from '../../config/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import { getUserProfile } from '../GetSupabase/AllService';
+import { getTasks, getUserProfile } from '../GetSupabase/AllService';
 import { useState, useEffect } from 'react';
 
 export const Sidebar = () => {
+
+  interface Task {
+    title: string;
+    finish_date: string;
+  }
+
   const [profile, setProfile] = useState<UserProfile>({});
   const [layersVisible, setLayersVisible] = useState(true);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
   };
   
   const navigate = useNavigate();
+  
 
   interface UserProfile {
     full_name?: string;
@@ -41,7 +49,17 @@ export const Sidebar = () => {
   };
 
   useEffect(() => {
-    fetchUserProfile();
+    const fetchTasks = async () => {
+      const { data, error } = await getTasks();
+
+      if (error) {
+        console.error('Erro ao buscar tarefas:', error);
+      } else if (data) {
+        setTasks(data);
+      }
+      fetchUserProfile();
+    };
+    fetchTasks();
   }, []);
 
   return (
@@ -65,11 +83,6 @@ export const Sidebar = () => {
           <SquareCheckBig size={20} />
           <span>Concluído</span>
         </NavLink>
-        {/* <NavLink to="/dashboard/arquivadas" className={getNavLinkClass}>
-          <Archive size={20} />
-          <span>Arquivadas</span>
-        </NavLink>
-        */}
         <NavLink to="/dashboard/calendario" className={getNavLinkClass}>
           <CalendarDays size={20} />
           <span>Calendário</span>
@@ -83,6 +96,14 @@ export const Sidebar = () => {
           <div className={styles.navTodayTasks}>
             <CalendarClock size={20}/>
           </div>
+      </div>
+
+      <div className={styles.todayTasksList}>
+        {tasks.map((task, index) => (
+          <div key={index} className={styles.todayTask}>
+            <span>{task.title}</span>
+          </div>
+        ))}
       </div>
 
       <footer className={styles.footer}>
