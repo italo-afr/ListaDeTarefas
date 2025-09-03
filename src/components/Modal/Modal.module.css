@@ -1,5 +1,5 @@
 .modalOverlay {
-  position: fixed; /* Cobre a tela inteira, independente da rolagem */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -7,33 +7,39 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Garante que fique na frente de tudo */
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.2); /* Fundo mais escuro para o overlay */
 }
 
 .modalContent {
-  background-color: #2e2e2e; /* Mesma cor da sua sidebar */
+  background-color: #2e2e2e;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   width: 90%;
-  max-width: 500px; /* Largura máxima do modal */
+  max-width: 500px;
   color: #fff;
+  position: relative; /* Essencial para posicionar o botão Fechar */
+  padding-top: 3rem;
 }
 
 .closeButton {
-  background-color: #6a45d1; 
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 16px;
-  border-radius: 6px;
-  border: none;
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  background: none; 
+  border: none; 
   color: #fff;
-  font-size: 1rem;
-  margin-top: 1.5rem;
-  display: block; /* Faz o botão ocupar a própria linha */
-  margin-left: auto; /* Alinha o botão à direita */
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  line-height: 1; 
+  font-weight: bold; 
+  z-index: 1001; 
+  transition: color 0.2s ease-in-out;
 }
 
 .closeButton:hover {
-  background-color: #7b58e2;
+  color: #bbb; 
+  background-color: transparent; 
 }

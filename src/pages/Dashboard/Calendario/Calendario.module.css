@@ -32,70 +32,70 @@
 }
 
 .calendarContainer :global(.rbc-calendar) {
-    background-color: #2e2e2e;
-    color: #f1f1f1;
-    border: 1px solid #444;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
 }
 
 .calendarContainer :global(.rbc-toolbar) {
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .calendarContainer :global(.rbc-toolbar .rbc-toolbar-label) {
     font-size: 1.5em;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .calendarContainer :global(.rbc-btn-group button) {
-    background-color: #3a3a3a;
-    color: #f1f1f1;
-    border: 1px solid #555;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
 }
 
 .calendarContainer :global(.rbc-btn-group button:hover),
 .calendarContainer :global(.rbc-btn-group button:focus) {
-    background-color: #4a4a4a;
-    border-color: #666;
+    background-color: var(--hover-color);
+    border-color: var(--border-color);
 }
 
 .calendarContainer :global(.rbc-btn-group button.rbc-active) {
-    background-color: #6a45d1; 
-    border-color: #6a45d1;
-    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-hover);
+    color: var(--text-color);
 }
 
 .calendarContainer :global(.rbc-header) {
-    background-color: #333;
-    border-bottom: 1px solid #444;
+    background-color: var(--card-background);
+    border-bottom: 1px solid var(--border-color);
     padding: 10px 0;
     font-weight: bold;
 }
 
 .calendarContainer :global(.rbc-day-bg) {
-    border-left: 1px solid #444;
+    border-left: 1px solid var(--border-color);
 }
 .calendarContainer :global(.rbc-day-bg:first-child) {
     border-left: none;
 }
 
 .calendarContainer :global(.rbc-off-range-bg) {
-    background-color: #242424;
+    background-color: var(--background-color-dark);
 }
 
 .calendarContainer :global(.rbc-today) {
-    background-color: #3f3a52;
+    background-color: var(--hover-color);
 }
 
 .calendarContainer :global(.rbc-event) {
-    background-color: #6a45d1;
-    border: 1px solid #8b70d2;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-hover);
     padding: 4px 8px;
     border-radius: 4px;
 }
 
 .calendarContainer :global(.rbc-show-more) {
-    color: #8b70d2;
+    color: var(--primary-hover);
     background-color: transparent;
 }

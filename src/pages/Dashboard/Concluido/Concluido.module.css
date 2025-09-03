@@ -6,9 +6,9 @@
 .ConcluidoPage h1 {
     font-size: 2rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-color);
     margin-bottom: 2rem;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 1rem;
 }
 
@@ -26,10 +26,10 @@
 }
 
 .taskCard {
-    background-color: #2e2e2e;
+    background-color: var(--card-background);
     padding: 1.5rem;
     border-radius: 8px;
-    border: 1px solid #444;
+    border: 1px solid var(--border-color);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -41,7 +41,7 @@
 .taskCard h2 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #f1f1f1;
+    color: var(--text-color);
     margin: 0 0 0.5rem 0;
 }
 
@@ -64,19 +64,60 @@
 }
 
 .taskCard button {
-    background-color: #6a45d1; 
+    background-color: var(--primary-color);
     font-weight: bold;
     cursor: pointer;
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid #555;
-    color: #fff;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
     font-size: 0.8rem;
     box-sizing: border-box;
 }
 
 .taskCard button:hover {
-    background-color: #7b58e2; 
+    background-color: var(--hover-color);
     transition: background-color 0.3s ease;
 }
 
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+
+/* Estilos para o botão de confirmação */
+.confirmButton {
+    background-color: var(--success-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    display: block;
+}
+
+.confirmButton:hover {
+  background-color: var(--success-hover-color);
+}
+
+/* Estilos para o botão de cancelamento */
+.cancelButton {
+  background-color: var(--red-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  display: block;
+}
+
+.cancelButton:hover {
+  background-color: var(--red-hover-color);
+}

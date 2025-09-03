@@ -8,5 +8,5 @@
   flex-grow: 1;
   padding: 2rem;
   overflow-y: auto;
-  background-color: #202020; /* Cor de fundo do conteúdo a direita da sidebar */
+  background-color: var(--background-color); /* Cor de fundo do conteúdo a direita da sidebar */
 }

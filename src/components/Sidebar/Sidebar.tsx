@@ -1,12 +1,17 @@
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.css';
-import { UserCircle, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react';
+import { Sun, Moon, UserCircle, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox } from 'lucide-react';
 import { supabase } from '../../config/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { getTasks, getUserProfile } from '../GetSupabase/AllService';
 import { useState, useEffect } from 'react';
+import type { AppProps } from '../../App';
 
-export const Sidebar = () => {
+interface SidebarProps extends AppProps {
+    theme: string;
+}
+
+export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
 
   interface Task {
     title: string;
@@ -117,6 +122,10 @@ export const Sidebar = () => {
         <div className={styles.navNotificacao}>
           <Bell size={18} />
         </div>
+        <button onClick={toggleTheme} className={styles.themeButton}>
+          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+
       </footer>
     </div>
   );

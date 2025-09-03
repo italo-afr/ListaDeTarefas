@@ -7,7 +7,7 @@
 .app-container {
   display: flex;
   height: 100vh;
-  background-color: #242424;
+  background-color: var(--background-color);
 }
 
 .welcomeContainer {
@@ -17,20 +17,20 @@
   justify-content: center;
   height: 100%; /* Ocupa toda a altura da área de conteúdo */
   text-align: center;
-  color: #c4c4c4;
+  color: var(--text-color-light);
   padding: 2rem;
   animation: fadeIn 0.5s ease-in-out;
 }
 
 .iconWrapper {
   margin-bottom: 1.5rem;
-  color: #6a45d1; /* A mesma cor roxa da home page */
+  color: var(--primary-color); /* A mesma cor roxa da home page */
 }
 
 .title {
   font-size: 2.25rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 0.75rem;
 }
 

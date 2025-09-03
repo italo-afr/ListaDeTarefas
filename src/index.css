@@ -21,3 +21,32 @@ body {
 body.modal-open {
   overflow: hidden;
 }
+
+:root {
+  --success-color: #28a745;
+  --success-hover-color: #32c76a;
+  --red-color: #dc3545;
+  --red-hover-color: #e55361;
+
+  /* Tema escuro */
+  --background-color: #1a1a1a;
+  --card-background: #2e2e2e;
+  --sidebar-background: #232627;
+  --text-color: #f1f1f1;
+  --text-color-light: #b3b3b3;
+  --border-color: #444;
+  --primary-color: #6a45d1;
+  --primary-hover: #7b58e2;
+}
+
+.light {
+  --background-color: #f4f4f4;
+  --card-background: #ffffff;
+  --sidebar-background: #e9e9e9;
+  --hover-color: #dcdcdc;
+  --text-color: #232627;
+  --text-color-light: #555555;
+  --border-color: #dcdcdc;
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+}

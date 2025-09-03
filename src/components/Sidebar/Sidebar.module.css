@@ -2,8 +2,8 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  background-color: #2e2e2e;
-  color: #f1f1f1;
+  background-color: var(--sidebar-background);
+  color: var(--text-color);
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-x: hidden; /* Esconde o conteúdo que transborda horizontalmente */
@@ -66,7 +66,7 @@
 
 .menu:hover {
   cursor: pointer;
-  background-color: #444;
+  background-color: var(--hover-color);
   padding: 6px;
   transition: background-color 0.2s;
   border-radius: 10px;
@@ -85,7 +85,7 @@
   align-items: center;
   gap: 6px;
   padding-top: 12px;
-  color: #f1f1f1;
+  color: var(--text-color-light);
   text-decoration: none;
   font-size: 20px;
   font-weight: bold;
@@ -98,14 +98,14 @@
   gap: 14px;
   padding: 8px;
   border-radius: 8px;
-  color: #f1f1f1;
+  color: var(--text-color);
   text-decoration: none;
   transition: background-color 0.2s;
   white-space: nowrap;
 }
 
 .navItem:hover {
-  background-color: #444;
+  background-color: var(--hover-color);
 }
 
 
@@ -117,7 +117,7 @@
 
 .navTodayText{
   font-weight: bold;
-  color: #f1f1f1;
+  color: var(--text-color);
   text-decoration: none;
   font-size: 1.2rem;
 }
@@ -127,7 +127,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 16px;
-  border-top: 1px solid #444; /* Borda escura acima do tarefas hoje */
+  border-top: 1px solid var(--border-color);
   margin-bottom: 16px;
 }
 
@@ -140,14 +140,14 @@
 
 .todayTask {
   padding: 8px 12px;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background-color: #3a3a3a;
+  background-color: var(--background-color-dark);
 }
 
 .todayTask span {
   font-size: 0.95rem;
-  color: #f1f1f1;
+  color: var(--text-color-light);
 }
 
 /* --- Rodapé --- */
@@ -156,7 +156,7 @@
   align-items: center; 
   justify-content: space-between;
   padding-top: 16px;
-  border-top: 1px solid #444;
+  border-top: 1px solid var(--border-color);
   margin-top: auto; /* Empurra o rodapé para a parte de baixo da sidebar */
 }
 
@@ -172,21 +172,21 @@
   gap: 8px;
   padding: 8px;
   border-radius: 6px;
-  color: #f1f1f1;
+  color: var(--text-color-light);
   text-decoration: none;
   transition: background-color 0.2s;
   white-space: nowrap; /* Impede que o nome quebre a linha */
 }
 
 .navPerfil:hover {
-  background-color: #444;
+  background-color: var(--hover-color);
 }
 
 /* Botão de Logout */
 .logoutButton {
   background: none;
   border: none;
-  color: #ccc;
+  color: var(--text-color-light);
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
@@ -195,8 +195,8 @@
 }
 
 .logoutButton:hover {
-  background-color: #444;
-  color: #fff; 
+  background-color: var(--hover-color);
+  color: var(--text-color-light);
 }
 
 /* Sino de notificação */
@@ -210,5 +210,23 @@
 }
 
 .navNotificacao:hover {
-  background-color: #444;
+  background-color: var(--hover-color);
+}
+
+.themeButton {
+  background: none;
+  border: none;
+  color: var(--text-color-light); /* Usa a cor de texto mais clara */
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.themeButton:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color); /* Usa a cor de texto principal no hover */
 }

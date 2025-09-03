@@ -5,9 +5,9 @@
 .pageTitle {
   font-size: 2rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-color);
   margin-bottom: 2rem;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
 }
 
@@ -15,7 +15,7 @@
   text-align: center;
   margin-top: 4rem;
   font-size: 1.1rem;
-  color: #a0a0a0;
+  color: var(--text-color-light);
 }
 
 .taskList {
@@ -25,10 +25,10 @@
 }
 
 .taskCard {
-  background-color: #2e2e2e;
+  background-color: var(--card-background);
   padding: 1.5rem;
   border-radius: 8px;
-  border: 1px solid #444;
+  border: 1px solid var(--border-color);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -40,13 +40,13 @@
 .taskCard h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #f1f1f1;
+  color: var(--text-color);
   margin: 0 0 0.5rem 0;
 }
 
 .taskCard p {
   font-size: 1rem;
-  color: #b3b3b3;
+  color: var(--text-color-light);
   line-height: 1.6;
   margin: 0 0 1rem 0;
   white-space: pre-wrap; /* Mantém as quebras de linha da descrição */
@@ -64,25 +64,25 @@
 }
 
 .taskCard button {
-  background-color: #6a45d1; 
+  background-color: var(--primary-color);
   font-weight: bold;
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
-  border: 1px solid #555;
-  color: #fff;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
   font-size: 0.8rem;
   box-sizing: border-box;
 }
 
 .taskCard button:hover {
-  background-color: #7b58e2; 
+  background-color: var(--primary-hover);
   transition: background-color 0.3s ease;
 }
 
 .termDate {
   font-size: 0.9rem;
-  color: #dd2020; 
+  color: var(--red-color);
   font-weight: 500;
   text-align: right;
   padding-top: 0.55rem;
