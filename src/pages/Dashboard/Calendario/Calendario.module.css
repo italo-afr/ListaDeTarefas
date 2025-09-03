@@ -19,6 +19,7 @@
 
 .pageContainer h1 {
     margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
 .pageContainer p {

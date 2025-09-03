@@ -24,7 +24,8 @@
 .sidebarClosed span,
 .sidebarClosed .logoutButton,
 .sidebarClosed .navNotificacao,
-.sidebarClosed .todayTasksList {
+.sidebarClosed .todayTasksList,
+.sidebarClosed .themeButton {
   display: none;
 }
 
