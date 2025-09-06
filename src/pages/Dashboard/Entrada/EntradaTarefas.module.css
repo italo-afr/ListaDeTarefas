@@ -88,3 +88,44 @@
   padding-top: 0.55rem;
 }
 
+
+/* Estilos para o botão de confirmação */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+
+.confirmButton {
+    background-color: var(--success-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    display: block;
+}
+
+.confirmButton:hover {
+  background-color: var(--success-hover-color);
+}
+
+/* Estilos para o botão de cancelamento */
+.cancelButton {
+  background-color: var(--red-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  display: block;
+}
+
+.cancelButton:hover {
+  background-color: var(--red-hover-color);
+}

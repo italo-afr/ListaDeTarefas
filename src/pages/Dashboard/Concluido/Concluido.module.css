@@ -80,6 +80,7 @@
     transition: background-color 0.3s ease;
 }
 
+/* Estilos para o Modal */
 
 .modalActions {
   display: flex;

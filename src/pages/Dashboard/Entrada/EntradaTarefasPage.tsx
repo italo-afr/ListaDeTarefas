@@ -13,6 +13,7 @@ export function EntradaTarefas() {
         finish_date: string;
         start_date: string;
         completed: boolean;
+        completed_at: string | null;
     }
 
     const [tasks, setTasks] = useState<Task[]>([]);
@@ -20,6 +21,7 @@ export function EntradaTarefas() {
     const [error, setError] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+    const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
     // useEffect para buscar as tarefas (sem alterações)
     useEffect(() => {
@@ -105,7 +107,7 @@ export function EntradaTarefas() {
                                 )}
                                 <div className={styles.taskActions}>
                                     <button onClick={(e) => { e.stopPropagation(); completedTask(task.id); }}>Concluir</button>
-                                    <button onClick={(e) => { e.stopPropagation(); deleteTasks(task.id); }}>Deletar</button>
+                                    <button onClick={(e) => { e.stopPropagation(); setTaskToDelete(task); }}>Deletar</button> 
                                 </div>
                             </div>
                         </div>
@@ -117,9 +119,23 @@ export function EntradaTarefas() {
                 {selectedTask && (
                     <div>
                         <h2>{selectedTask.title}</h2>
-                        <p style={{ marginTop: '1rem', lineHeight: '1.6' }}>
+                        <p style={{ marginTop: '2rem', lineHeight: '1.6' }}>
                             {selectedTask.description}
                         </p>
+                    </div>
+                )}
+            </Modal>
+            <Modal isOpen={!!taskToDelete} onClose={() => setTaskToDelete(null)}>
+                {taskToDelete && (
+                    <div>
+                        <h2>Tem certeza que deseja deletar a tarefa?</h2>
+                        <p className={styles.taskTitle} style={{ marginTop: '2rem', fontWeight: 'bold' }}   >
+                            {taskToDelete.title}
+                        </p>
+                        <div className={styles.modalActions}>
+                            <button onClick={() => deleteTasks(taskToDelete.id)} className={styles.confirmButton}>Sim</button>
+                            <button onClick={() => setTaskToDelete(null)} className={styles.cancelButton}>Não</button>
+                        </div>
                     </div>
                 )}
             </Modal>

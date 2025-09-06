@@ -20,7 +20,7 @@
   max-width: 500px;
   color: #fff;
   position: relative; /* Essencial para posicionar o botão Fechar */
-  padding-top: 3rem;
+  padding-top: 2.5rem;
 }
 
 .closeButton {
