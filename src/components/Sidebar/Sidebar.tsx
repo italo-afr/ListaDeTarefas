@@ -22,6 +22,8 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
   const [layersVisible, setLayersVisible] = useState(true);
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  const todayString = new Date().toISOString().slice(0, 10); // Formato AAAA-MM-DD
+
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
   };
@@ -104,10 +106,12 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
       </div>
 
       <div className={styles.todayTasksList}>
-        {tasks.map((task, index) => (
-          <div key={index} className={styles.todayTask}>
-            <span>{task.title}</span>
-          </div>
+        {tasks
+          .filter(task => task.finish_date === todayString) // Filtro de tarefas de hoje
+          .map((task, index) => (
+            <div key={index} className={styles.todayTask}>
+              <span>{task.title}</span>
+            </div>
         ))}
       </div>
 
