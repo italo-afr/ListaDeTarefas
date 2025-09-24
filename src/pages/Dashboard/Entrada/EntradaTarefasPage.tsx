@@ -4,6 +4,7 @@ import { getTasks, updateTaskCompletion, deleteTask } from '../../../components/
 import { Modal } from '../../../components/Modal/Modal';
 import { ptBR } from 'date-fns/locale';
 import { format } from 'date-fns';
+import { motion, AnimatePresence } from "framer-motion";
 
 export function EntradaTarefas() {
     interface Task {
@@ -60,39 +61,43 @@ export function EntradaTarefas() {
         return <div className={styles.centeredMessage}>{error}</div>;
     }
 
-    const completedTask = async (taskId: number) => {
-        const completedAt = new Date().toISOString();
-        const { error } = await updateTaskCompletion(taskId, true, completedAt);
-        if (error) {
-            console.error('Erro ao concluir tarefa:', error);
-        } else {
-            window.location.reload();
-        }
-    };
-    
-    const deleteTasks = async (taskId: number) => {
-        const { error } = await deleteTask(taskId);
-        if (error) {
-            console.error('Erro ao deletar tarefa:', error);
-        } else {
-            window.location.reload();
-        }
-    };
-
     // Funções de controle do Modal (sem alterações)
-    const handleTaskClick = (task: Task) => {
-        setSelectedTask(task);
-        setIsModalOpen(true);
-    };
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setSelectedTask(null);
-    };
+    const handleDeleteTask = (taskIdToDelete: number) => {
+  // 1. Atualização Otimista da UI: Remove a tarefa da lista local imediatamente
+  setTasks(currentTasks => currentTasks.filter(task => task.id !== taskIdToDelete));
+  
+  // 2. Chama a API em segundo plano
+  deleteTask(taskIdToDelete).catch(error => {
+    console.error("Falha ao deletar no servidor:", error);
+    // Opcional: Adicionar lógica para mostrar a tarefa de volta se a API falhar
+  });
+};
+
+const handleCompleteTask = (taskIdToComplete: number) => {
+  // A lógica é a mesma da exclusão: removemos a tarefa da lista de "Entrada"
+  setTasks(currentTasks => currentTasks.filter(task => task.id !== taskIdToComplete));
+  
+  // E chamamos a API para marcar como concluída em segundo plano
+  const completedAt = new Date().toISOString();
+  updateTaskCompletion(taskIdToComplete, true, completedAt).catch(error => {
+    console.error("Falha ao concluir no servidor:", error);
+  });
+};
 
     // Filtragem das tarefas com base no termo de busca
     const filteredTasks = tasks.filter(task =>
         task.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleTaskClick = (task: Task) => {
+        setSelectedTask(task);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedTask(null);
+    };
 
     return (
         <div className={styles.pageContainer}>
@@ -114,8 +119,9 @@ export function EntradaTarefas() {
                 <p className={styles.centeredMessage}>Você ainda não tem tarefas. Crie uma nova!</p>
             ) : (
                 <div className={styles.taskList}>
+                <AnimatePresence>
                     {filteredTasks.map((task) => (
-                        <div key={task.id} className={styles.taskCard} onClick={() => handleTaskClick(task)}>
+                        <motion.div key={task.id} layout initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className={styles.taskCard} onClick={() => handleTaskClick(task)}>
                             <h2>{task.title}</h2>
                             <div className={styles.taskCard2Layer}>
                                 {task.finish_date && (
@@ -124,12 +130,13 @@ export function EntradaTarefas() {
                                     </div>
                                 )}
                                 <div className={styles.taskActions}>
-                                    <button onClick={(e) => { e.stopPropagation(); completedTask(task.id); }}>Concluir</button>
-                                    <button onClick={(e) => { e.stopPropagation(); setTaskToDelete(task); }}>Deletar</button> 
+                                    <button onClick={(e) => { e.stopPropagation(); handleCompleteTask(task.id); }}>Concluir</button>
+                                    <button onClick={(e) => { e.stopPropagation(); setTaskToDelete(task); }}>Deletar</button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
+                    </AnimatePresence>
                 </div>
             )}
             
@@ -151,7 +158,7 @@ export function EntradaTarefas() {
                             {taskToDelete.title}
                         </p>
                         <div className={styles.modalActions}>
-                            <button onClick={() => deleteTasks(taskToDelete.id)} className={styles.confirmButton}>Sim</button>
+                            <button onClick={() => handleDeleteTask(taskToDelete.id)} className={styles.confirmButton}>Sim</button>
                             <button onClick={() => setTaskToDelete(null)} className={styles.cancelButton}>Não</button>
                         </div>
                     </div>
