@@ -2,13 +2,30 @@
   padding: 1rem;
 }
 
+.pageHeader{
+  display: flex;
+  justify-content: space-between ;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
 .pageTitle {
   font-size: 2rem;
   font-weight: 600;
   color: var(--text-color);
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
+
+}
+
+.searchContainer{
+  display: flex;
+  justify-content: center;
+}
+.searchInput {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px;
 }
 
 .centeredMessage {

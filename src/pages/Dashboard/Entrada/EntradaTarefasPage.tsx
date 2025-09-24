@@ -16,6 +16,7 @@ export function EntradaTarefas() {
         completed_at: string | null;
     }
 
+    const [searchTerm, setSearchTerm] = useState('');
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -88,15 +89,32 @@ export function EntradaTarefas() {
         setSelectedTask(null);
     };
 
+    // Filtragem das tarefas com base no termo de busca
+    const filteredTasks = tasks.filter(task =>
+        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className={styles.pageContainer}>
-            <h1 className={styles.pageTitle}>Caixa de Entrada</h1>
+            <div className={styles.pageHeader}>
+                <h1 className={styles.pageTitle}>Caixa de Entrada</h1>
+
+                <div className={styles.searchContainer}>
+                    <input
+                        type="text"
+                        placeholder="Pesquisar tarefas..."
+                        className={styles.searchInput}
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+            </div>
 
             {tasks.length === 0 ? (
                 <p className={styles.centeredMessage}>Você ainda não tem tarefas. Crie uma nova!</p>
             ) : (
                 <div className={styles.taskList}>
-                    {tasks.map((task) => (
+                    {filteredTasks.map((task) => (
                         <div key={task.id} className={styles.taskCard} onClick={() => handleTaskClick(task)}>
                             <h2>{task.title}</h2>
                             <div className={styles.taskCard2Layer}>
