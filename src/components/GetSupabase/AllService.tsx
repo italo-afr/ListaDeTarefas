@@ -5,26 +5,29 @@ type NewTask = {
     description: string;
     finish_date: string;
     start_date: string;
+    finish_time: string;
+    start_time: string;
 };
 
 // Cria as tarefas
 export const createTask = async (taskData: NewTask) => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-        console.error("Nenhum utilizador está logado.");
-        return { data: null, error: new Error("Utilizador não autenticado") };
-    }
+    if (!user) return { data: null, error: new Error("Usuário não autenticado") };
+
+    // Garantimos que os novos campos de hora são incluídos
+    const taskToInsert = {
+        title: taskData.title,
+        description: taskData.description,
+        start_date: taskData.start_date,
+        finish_date: taskData.finish_date,
+        start_time: taskData.start_time,
+        finish_time: taskData.finish_time,
+        user_id: user.id
+    };
+
     const { data, error } = await supabase
         .from('tableList')
-        .insert([{
-            title: taskData.title,
-            description: taskData.description,
-            finish_date: taskData.finish_date,
-            start_date: taskData.start_date,
-            user_id: user.id
-        }])
-        .select()
-        .single();
+        .insert([taskToInsert]);
     
     return { data, error };
 };
@@ -55,7 +58,6 @@ export const updateTaskCompletion = async (taskId: number, completed: boolean, c
     return { data, error };
 };
 
-
 // Deleta uma tarefa
 export const deleteTask = async (taskId: number) => {
     const { data, error } = await supabase.from('tableList')
@@ -81,4 +83,25 @@ export const getUserProfile = async () => {
         return null;
     }
     return data;
+};
+
+// Função para buscar UMA ÚNICA tarefa pelo seu ID
+export const getTaskById = async (taskId: string) => {
+  const { data, error } = await supabase
+    .from('tableList')
+    .select('*')
+    .eq('id', taskId)
+    .single();
+
+  return { data, error };
+};
+
+// Função para ATUALIZAR uma tarefa existente
+export const updateTask = async (taskId: string, updates: any) => {
+  const { data, error } = await supabase
+    .from('tableList')
+    .update(updates)
+    .eq('id', taskId);
+
+  return { data, error };
 };

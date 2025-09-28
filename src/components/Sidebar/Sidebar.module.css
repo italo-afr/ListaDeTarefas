@@ -8,7 +8,8 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-x: hidden; /* Esconde o conteúdo que transborda horizontalmente */
   flex-grow: 0; /* Impede que a sidebar cresça além do necessário */
-  max-height: 100vh; 
+  max-height: 100vh;
+  width: 300px;
   overflow-y: auto;
   flex-shrink: 0;
   transition: width 0.3s ease-in-out;
@@ -149,6 +150,11 @@
 .todayTask span {
   font-size: 0.95rem;
   color: var(--text-color-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
 }
 
 /* --- Rodapé --- */

@@ -1,0 +1,13 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.content {
+  flex-grow: 1; /* Faz a área de conteúdo ocupar o resto do espaço */
+  overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
+  padding: 2rem;
+}

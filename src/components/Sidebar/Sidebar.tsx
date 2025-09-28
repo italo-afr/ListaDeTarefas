@@ -7,22 +7,26 @@ import { getTasks, getUserProfile } from '../GetSupabase/AllService';
 import { useState, useEffect } from 'react';
 import type { AppProps } from '../../App';
 
-interface SidebarProps extends AppProps {
-    theme: string;
+interface Task {
+  id: number;
+  title: string;
+  finish_date: string;
 }
 
-export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
+interface SidebarProps extends AppProps {
+    theme: string;
+    toggleTheme: () => void;
+    tasks: Task[];
+}
 
-  interface Task {
-    title: string;
-    finish_date: string;
-  }
-
+export const Sidebar = ({ toggleTheme, theme, tasks }: SidebarProps) => {
+  console.log("2. TAREFAS RECEBIDAS PELA SIDEBAR:", tasks);
+  
   const [profile, setProfile] = useState<UserProfile>({});
   const [layersVisible, setLayersVisible] = useState(true);
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  const todayString = new Date().toISOString().slice(0, 10); // Formato AAAA-MM-DD
+  const [localTasks, setLocalTasks] = useState<Task[]>([]);
+  
+  const todayString = new Date().toISOString().slice(0, 10);
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
@@ -62,7 +66,7 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
       if (error) {
         console.error('Erro ao buscar tarefas:', error);
       } else if (data) {
-        setTasks(data);
+        setLocalTasks(data);
       }
       fetchUserProfile();
     };
@@ -106,12 +110,12 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
       </div>
 
       <div className={styles.todayTasksList}>
-        {tasks
-          .filter(task => task.finish_date === todayString) // Filtro de tarefas de hoje
-          .map((task, index) => (
-            <div key={index} className={styles.todayTask}>
-              <span>{task.title}</span>
-            </div>
+        {localTasks
+            .filter(task => task.finish_date === todayString)
+            .map((task, index) => (
+                <div key={index} className={styles.todayTask}>
+                    <span>{task.title}</span>
+                </div>
         ))}
       </div>
 

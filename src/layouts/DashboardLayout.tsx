@@ -1,16 +1,34 @@
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar/Sidebar';
-import './DashboardLayout.css';
+import { useEffect } from 'react';
+import { getTasks } from '../components/GetSupabase/AllService';
+import styles from './DashboardLayout.module.css';
 import type { AppProps } from '../App';
+import { useState } from 'react';
+
 
 export function DashboardLayout({ theme, toggleTheme }: AppProps) {
 
+    const [tasks, setTasks] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            const { data } = await getTasks();
+            console.log("1. TAREFAS BUSCADAS NO LAYOUT:", data);
+            if (data) {
+                setTasks(data);
+            }
+        };
+        fetchTasks();
+    }, []);
+
+    
+
     return (
-        <div className="dashboard-layout">
-            <Sidebar toggleTheme={toggleTheme} theme={theme} />
-            {/* A área de conteúdo dinâmico */}
-            <main className="dashboard-content">
-                <Outlet />
+        <div className={styles.layout}>
+            <Sidebar theme={theme} toggleTheme={toggleTheme} tasks={tasks}/>
+            <main className={styles.content}>
+                <Outlet context={{ tasks, setTasks }} /> 
             </main>
         </div>
     );

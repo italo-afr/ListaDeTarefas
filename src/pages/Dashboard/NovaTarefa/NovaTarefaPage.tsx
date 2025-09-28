@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './NovaTarefaPage.module.css';
-import { createTask } from '../../../components/GetSupabase/AllService';
+import { createTask, getTaskById, updateTask } from '../../../components/GetSupabase/AllService';
 import { useEffect, useRef } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -13,6 +13,8 @@ import { CalendarDays } from 'lucide-react';
 export function NovaTarefaPage() {
     
     const navigate = useNavigate();
+    
+    const { taskId } = useParams<{ taskId: string }>(); // Pega o ID da tarefa dos parâmetros da URL
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -20,31 +22,69 @@ export function NovaTarefaPage() {
     const [finish_date, setFinishDate] = useState<Date | undefined>(undefined);
     const [openDatePicker, setOpenDatePicker] = useState<string | null>(null);
     const datePickerRef = useRef<HTMLDivElement>(null);
+    const [startTime, setStartTime] = useState(''); 
+    const [finishTime, setFinishTime] = useState('');
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Impede o recarregamento da página
+    e.preventDefault();
 
-        console.log('Formulário enviado. Título:', title, 'Descrição:', description);
+    const taskData = {
+        title: title,
+        description: description,
+        start_date: start_date ? start_date.toISOString() : new Date().toISOString(),
+        finish_date: finish_date ? finish_date.toISOString() : new Date().toISOString(),
+        start_time: startTime,
+        finish_time: finishTime,
+    };
 
-        const response = await createTask({
-            title: title,
-            description: description,
-            start_date: start_date ? start_date.toISOString() : '',
-            finish_date: finish_date ? finish_date.toISOString() : ''
-        });
+    if (taskId) {
+        const { error } = await updateTask(taskId, taskData);
 
-        if (response.error) {
-            console.error('Erro ao criar tarefa:', response.error);
-            return;
+        if (error) {
+            console.error('Erro ao atualizar tarefa:', error);
+            alert('Falha ao atualizar a tarefa.');
+        } else {
+            alert('Tarefa atualizada com sucesso!');
+            navigate('/dashboard/entrada'); 
+        }
+    } else {
+        const { error } = await createTask(taskData); 
+
+        if (error) {
+            console.error('Erro ao criar tarefa:', error);
+            alert('Falha ao criar a tarefa.');
         } else {
             alert('Tarefa criada com sucesso!');
-            setTitle('');
-            setDescription('');
-            setStartDate(undefined);
-            setFinishDate(undefined);
-            navigate('/dashboard/entrada');
+            navigate('/dashboard/entrada'); 
         }
-    };
+    }
+};
+
+    useEffect(() => {
+        // Se a URL tiver um taskId, entra em modo de edição
+        if (taskId) {
+            const fetchTaskData = async () => {
+            const { data, error } = await getTaskById(taskId);
+            if (error) {
+                console.error("Erro ao buscar dados da tarefa:", error);
+                alert("Não foi possível carregar os dados da tarefa para edição.");
+            } else if (data) {
+                // Preenchemos os estados do formulário com os dados recebidos
+                setTitle(data.title);
+                setDescription(data.description);
+                // As datas precisam de ser convertidas de texto para objetos Date
+                if (data.start_date) {
+                setStartDate(new Date(data.start_date));
+                }
+                if (data.finish_date) {
+                setFinishDate(new Date(data.finish_date));
+                }
+            }
+            };
+            fetchTaskData();
+        }
+    }, [taskId]);
 
     // Efeito para fechar o calendário ao clicar fora dele
     useEffect(() => {
@@ -82,6 +122,16 @@ export function NovaTarefaPage() {
                                 <input id="date-input" type="text" readOnly value={start_date ? format(start_date, 'dd/MM/yyyy') : ''} placeholder="Selecione uma data" />
                                 <CalendarDays size={20} className={styles.calendarIcon} />
                             </div>
+                            <div className={styles.formTime}>
+                            <label htmlFor="start-time-input">Horário de início</label>
+                            <input
+                                id="start-time-input"
+                                type="time"
+                                value={startTime}
+                                onChange={(e) => setStartTime(e.target.value)}
+                                className={styles.timeInput}
+                            />
+                        </div>
                             {openDatePicker === 'start' && (
                                 <div ref={datePickerRef} className={styles.datePickerPopover}>
                                     <DayPicker mode="single" selected={start_date} onSelect={(date) => {
@@ -97,6 +147,16 @@ export function NovaTarefaPage() {
                             <div className={styles.dateInputWrapper} onClick={() => setOpenDatePicker('finish')}>
                                 <input id="date-input" type="text" readOnly value={finish_date ? format(finish_date, 'dd/MM/yyyy') : ''} placeholder="Selecione uma data" />
                                 <CalendarDays size={20} className={styles.calendarIcon} />
+                            </div>
+                            <div className={styles.formTime}>
+                                <label htmlFor="finish-time-input">Horário de conclusão</label>
+                                <input
+                                    id="finish-time-input"
+                                    type="time"
+                                    value={finishTime}
+                                    onChange={(e) => setFinishTime(e.target.value)}
+                                    className={styles.timeInput} // Reutilizamos o estilo
+                                />
                             </div>
                             {openDatePicker === 'finish' && (
                                 <div ref={datePickerRef} className={styles.datePickerPopover}>

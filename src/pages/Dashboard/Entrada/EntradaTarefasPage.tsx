@@ -5,8 +5,11 @@ import { Modal } from '../../../components/Modal/Modal';
 import { ptBR } from 'date-fns/locale';
 import { format } from 'date-fns';
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 export function EntradaTarefas() {
+
+    const navigate = useNavigate();
     interface Task {
         id: number;
         title: string;
@@ -131,6 +134,7 @@ const handleCompleteTask = (taskIdToComplete: number) => {
                                 )}
                                 <div className={styles.taskActions}>
                                     <button onClick={(e) => { e.stopPropagation(); handleCompleteTask(task.id); }}>Concluir</button>
+                                    <button onClick={(e) => { e.stopPropagation(); navigate(`/dashboard/editar-tarefa/${task.id}`); }} className={styles.editButton}>Editar</button>
                                     <button onClick={(e) => { e.stopPropagation(); setTaskToDelete(task); }}>Deletar</button>
                                 </div>
                             </div>
