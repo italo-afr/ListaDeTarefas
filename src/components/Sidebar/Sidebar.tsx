@@ -16,12 +16,12 @@ interface Task {
 interface SidebarProps extends AppProps {
     theme: string;
     toggleTheme: () => void;
-    tasks: Task[];
 }
 
-export const Sidebar = ({ toggleTheme, theme, tasks }: SidebarProps) => {
-  console.log("2. TAREFAS RECEBIDAS PELA SIDEBAR:", tasks);
-  
+export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
+
+  const navigate = useNavigate();
+
   const [profile, setProfile] = useState<UserProfile>({});
   const [layersVisible, setLayersVisible] = useState(true);
   const [localTasks, setLocalTasks] = useState<Task[]>([]);
@@ -31,9 +31,6 @@ export const Sidebar = ({ toggleTheme, theme, tasks }: SidebarProps) => {
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
   };
-  
-  const navigate = useNavigate();
-  
 
   interface UserProfile {
     full_name?: string;
@@ -102,7 +99,7 @@ export const Sidebar = ({ toggleTheme, theme, tasks }: SidebarProps) => {
 
       <div className={styles.todayTasks}>
           <nav className={styles.navToday}>
-            <span className={styles.navTodayText}>Tarefas de Hoje</span>
+            <span className={styles.navTodayText}>Encerram hoje</span>
           </nav>
           <div className={styles.navTodayTasks}>
             <CalendarClock size={20}/>

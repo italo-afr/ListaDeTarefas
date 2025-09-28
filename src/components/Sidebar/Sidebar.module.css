@@ -110,7 +110,6 @@
   background-color: var(--hover-color);
 }
 
-
 .navToday{
   display: flex;
   align-items: center;
@@ -124,6 +123,7 @@
   font-size: 1.2rem;
 }
 
+/* --- Tarefas de Hoje --- */
 .todayTasks {
   display: flex;
   justify-content: space-between;
@@ -131,6 +131,15 @@
   padding-top: 16px;
   border-top: 1px solid var(--border-color);
   margin-bottom: 16px;
+}
+
+.active {
+  background-color: var(--primary-color); 
+  color: #fff; 
+}
+
+.active svg {
+  color: #fff;
 }
 
 .todayTasksList {

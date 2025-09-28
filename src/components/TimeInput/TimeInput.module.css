@@ -1,0 +1,105 @@
+.timeInputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.timeInputDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--text-color);
+  font-size: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.timeInputDisplay:hover {
+  border-color: #888;
+}
+
+.clockIcon {
+  color: #a0a0a0;
+}
+
+.timePickerPopover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  padding: 1rem;
+  color: var(--text-color);
+}
+
+.pickerControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.timeValueInput {
+  width: 60px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.pickerActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pickerActions button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancelButton {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+.cancelButton:hover {
+  background-color: var(--border-color);
+    transition: background-color 0.3s ease;
+}
+
+.confirmButton {
+  background-color: var(--primary-color);
+  color: var(--text-color); 
+}
+
+.confirmButton:hover {
+  background-color: var(--primary-hover);
+  transition: background-color 0.3s ease;
+}

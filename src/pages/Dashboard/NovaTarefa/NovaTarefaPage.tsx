@@ -9,6 +9,7 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import TextareaAutosize from 'react-textarea-autosize';
 import { CalendarDays } from 'lucide-react';
+import { TimeInput } from '../../../components/TimeInput/TimeInput';
 
 export function NovaTarefaPage() {
     
@@ -124,13 +125,7 @@ export function NovaTarefaPage() {
                             </div>
                             <div className={styles.formTime}>
                             <label htmlFor="start-time-input">Horário de início</label>
-                            <input
-                                id="start-time-input"
-                                type="time"
-                                value={startTime}
-                                onChange={(e) => setStartTime(e.target.value)}
-                                className={styles.timeInput}
-                            />
+                            <TimeInput value={startTime} onChange={setStartTime} />
                         </div>
                             {openDatePicker === 'start' && (
                                 <div ref={datePickerRef} className={styles.datePickerPopover}>
@@ -150,13 +145,7 @@ export function NovaTarefaPage() {
                             </div>
                             <div className={styles.formTime}>
                                 <label htmlFor="finish-time-input">Horário de conclusão</label>
-                                <input
-                                    id="finish-time-input"
-                                    type="time"
-                                    value={finishTime}
-                                    onChange={(e) => setFinishTime(e.target.value)}
-                                    className={styles.timeInput} // Reutilizamos o estilo
-                                />
+    <TimeInput value={finishTime} onChange={setFinishTime} />
                             </div>
                             {openDatePicker === 'finish' && (
                                 <div ref={datePickerRef} className={styles.datePickerPopover}>
