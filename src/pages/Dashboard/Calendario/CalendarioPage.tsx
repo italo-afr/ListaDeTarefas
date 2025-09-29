@@ -1,35 +1,36 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Calendar, momentLocalizer, Views, type View } from 'react-big-calendar'; // Adicione 'type View'
+import { Calendar, momentLocalizer, Views, type View } from 'react-big-calendar';
 import moment from 'moment';
-import { getTasks } from '../../../components/GetSupabase/AllService'; 
+import 'moment/locale/pt-br';
+import { getTasks } from '../../../components/GetSupabase/AllService';
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Calendario.module.css';
-import { Modal } from '../../../components/Modal/Modal'; // 1. Importe o Modal
+import { Modal } from '../../../components/Modal/Modal'; 
 
-// A nossa interface de Tarefa, completa
 interface Task {
     id: number;
     title: string;
     description: string;
     start_date: string;
-    finish_date: string | null; 
+    finish_date: string | null;
+    start_time: string | null;
+    finish_time: string | null;
 };
 
 export function CalendarioPage() {
     moment.locale('pt-br');
     const localizer = momentLocalizer(moment);
 
-    // 2. Adicione os estados para as tarefas e o modal
     const [tasks, setTasks] = useState<Task[]>([]);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const [date, setDate] = useState(new Date());
     const [view, setView] = useState<View>(Views.MONTH);
 
-    // 3. Busca de dados usando a função do Supabase
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchTasks = async () => {
-            // A sua função getTasks original, que já sabe buscar apenas
-            // as tarefas do usuário logado através do Supabase.
             const { data, error } = await getTasks(); 
             if (data) {
                 setTasks(data);
@@ -38,23 +39,33 @@ export function CalendarioPage() {
                 console.error("Erro ao buscar tarefas:", error);
             }
         };
-
         fetchTasks();
     }, []); 
-  
-    // 4. Mapeia os dados para o formato do calendário, incluindo todos os campos
+ 
     const events = tasks
         .filter(task => task.start_date)
-        .map(task => ({
-            ...task,
-            start: new Date(task.start_date),
-            end: new Date(task.finish_date || task.start_date),
-        }));
+        .map(task => {
+            const startDateTime = moment(`${task.start_date} ${task.start_time || '00:00:00'}`, "YYYY-MM-DD HH:mm:ss").toDate();
+            const finishDate = task.finish_date || task.start_date;
+            const finishTime = task.finish_time || task.start_time || '00:00:00'; 
+            const endDateTime = moment(`${finishDate} ${finishTime}`, "YYYY-MM-DD HH:mm:ss").toDate();
 
-    // 5. A função que o calendário vai chamar quando um evento for clicado
+            return {
+                ...task,
+                start: startDateTime,
+                end: endDateTime,
+                allDay: !task.start_time,
+            };
+        });
+
     const handleSelectTask = (event: Task) => {
         setSelectedTask(event);
     };
+
+    const handleEditTask = (taskId: number) => {
+        setSelectedTask(null);
+        navigate(`/dashboard/editar-tarefa/${taskId}`);
+    }
 
     const handleNavigate = useCallback((newDate: Date) => setDate(newDate), [setDate]);
     const handleView = useCallback((newView: View) => setView(newView), [setView]);
@@ -69,16 +80,28 @@ export function CalendarioPage() {
                     events={events} 
                     startAccessor="start"
                     endAccessor="end"
-                    messages={{  }}
                     onSelectEvent={handleSelectTask}
                     date={date}
                     view={view}
                     onNavigate={handleNavigate}
                     onView={handleView}
+                    messages={{
+                        next: "Próximo",
+                        previous: "Anterior",
+                        today: "Hoje",
+                        month: "Mês",
+                        week: "Semana",
+                        day: "Dia",
+                        agenda: "Agenda",
+                        date: "Data",
+                        time: "Hora",
+                        event: "Evento",
+                        noEventsInRange: "Não há tarefas neste período.",
+                        showMore: total => `+ Ver mais (${total})`
+                    }}
                 />
             </div>
 
-            {/* 7. O nosso componente Modal que mostra os detalhes */}
             <Modal isOpen={!!selectedTask} onClose={() => setSelectedTask(null)}>
                 {selectedTask && (
                     <div>
@@ -86,6 +109,14 @@ export function CalendarioPage() {
                         <p style={{ marginTop: '1rem', lineHeight: '1.6' }}>
                             {selectedTask.description}
                         </p>
+                        <div className={styles.modalActions}>
+                            <button 
+                                onClick={() => handleEditTask(selectedTask.id)} 
+                                className={styles.editButton}
+                            >
+                                Editar Tarefa
+                            </button>
+                        </div>
                     </div>
                 )}
             </Modal>

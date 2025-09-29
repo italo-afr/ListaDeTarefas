@@ -34,11 +34,16 @@ export const createTask = async (taskData: NewTask) => {
 
 // Traz as tarefas pendentes
 export const getTasks = async () => {
-    const { data, error } = await supabase.from('tableList')
-        .select('*')
-        .eq('completed', false)
-        .order('created_at', { ascending: false });
-    return { data, error };
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { data: [], error: null };
+
+  const { data, error } = await supabase
+    .from('tableList')
+    .select('id, title, description, start_date, finish_date, start_time, finish_time, completed')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false }); 
+  
+  return { data, error };
 };
 
 // Traz as tarefas concluídas

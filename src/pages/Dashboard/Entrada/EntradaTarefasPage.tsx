@@ -3,7 +3,7 @@ import styles from './EntradaTarefas.module.css';
 import { getTasks, updateTaskCompletion, deleteTask } from '../../../components/GetSupabase/AllService';
 import { Modal } from '../../../components/Modal/Modal';
 import { ptBR } from 'date-fns/locale';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 
@@ -38,7 +38,10 @@ export function EntradaTarefas() {
                 console.error('Erro ao buscar tarefas:', error);
                 setError('Não foi possível carregar as tarefas.');
             } else if (data) {
-                setTasks(data);
+                setTasks(data.map((task: any) => ({
+                    ...task,
+                    completed_at: task.completed_at || null,
+                })));
             }
             setLoading(false);
         };
@@ -129,7 +132,9 @@ const handleCompleteTask = (taskIdToComplete: number) => {
                             <div className={styles.taskCard2Layer}>
                                 {task.finish_date && (
                                     <div className={styles.termDate}>
-                                        <span>Prazo: {format(new Date(task.finish_date), "dd 'de' MMMM, yyyy", { locale: ptBR })}</span>
+                                        <span>
+                                            Prazo: {format(parseISO(task.finish_date), "dd 'de' MMMM, yyyy", { locale: ptBR })}
+                                        </span>
                                     </div>
                                 )}
                                 <div className={styles.taskActions}>

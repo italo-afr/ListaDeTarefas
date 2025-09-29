@@ -9,6 +9,17 @@
     margin-bottom: 20px;
 }
 
+.editButton {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
 
 .pageContainer {
     padding: 1rem;

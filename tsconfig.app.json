@@ -6,6 +6,11 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "moment/locale/*": ["./node_modules/moment/locale/*"]
+    },
+
 
     /* Bundler mode */
     "moduleResolution": "bundler",
