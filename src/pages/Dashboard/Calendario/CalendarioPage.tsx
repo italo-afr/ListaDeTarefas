@@ -11,6 +11,7 @@ import { Modal } from '../../../components/Modal/Modal';
 interface Task {
     id: number;
     title: string;
+    completed: boolean;
     description: string;
     start_date: string;
     finish_date: string | null;
@@ -43,7 +44,7 @@ export function CalendarioPage() {
     }, []); 
  
     const events = tasks
-        .filter(task => task.start_date)
+        .filter(task => task.start_date && !task.completed)
         .map(task => {
             const startDateTime = moment(`${task.start_date} ${task.start_time || '00:00:00'}`, "YYYY-MM-DD HH:mm:ss").toDate();
             const finishDate = task.finish_date || task.start_date;
@@ -56,7 +57,7 @@ export function CalendarioPage() {
                 end: endDateTime,
                 allDay: !task.start_time,
             };
-        });
+    });
 
     const handleSelectTask = (event: Task) => {
         setSelectedTask(event);
