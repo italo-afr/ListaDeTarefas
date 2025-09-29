@@ -16,6 +16,7 @@ interface Task {
 interface SidebarProps extends AppProps {
     theme: string;
     toggleTheme: () => void;
+    tasks: any[];
 }
 
 export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
