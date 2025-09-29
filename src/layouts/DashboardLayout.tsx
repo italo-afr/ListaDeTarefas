@@ -14,7 +14,6 @@ export function DashboardLayout({ theme, toggleTheme }: AppProps) {
     useEffect(() => {
         const fetchTasks = async () => {
             const { data } = await getTasks();
-            console.log("1. TAREFAS BUSCADAS NO LAYOUT:", data);
             if (data) {
                 setTasks(data);
             }

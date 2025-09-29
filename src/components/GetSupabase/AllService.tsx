@@ -46,12 +46,33 @@ export const getTasks = async () => {
   return { data, error };
 };
 
+// Traz as tarefas pendentes
+export const getIncompleteTasks = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { data: [], error: new Error("Usuário não autenticado") };
+
+    const { data, error } = await supabase
+        .from('tableList')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('completed', false)
+        .order('created_at', { ascending: false });
+    
+    return { data, error };
+};
+
 // Traz as tarefas concluídas
 export const getTasksCompletion = async () => {
-    const { data, error } = await supabase.from('tableList')
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { data: [], error: new Error("Usuário não autenticado") };
+
+    const { data, error } = await supabase
+        .from('tableList')
         .select('*')
+        .eq('user_id', user.id)
         .eq('completed', true)
         .order('created_at', { ascending: false });
+        
     return { data, error };
 };
 
