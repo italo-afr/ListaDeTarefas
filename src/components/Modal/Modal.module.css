@@ -8,19 +8,24 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.2); /* Fundo mais escuro para o overlay */
+  background-color: rgba(0, 0, 0, 0.3); /* Fundo mais escuro para o overlay */
 }
 
 .modalContent {
-  background-color: #2e2e2e;
+  background-color: var(--background-color);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   width: 90%;
-  max-width: 500px;
-  color: #fff;
+  color: var(--text-color);
   position: relative; /* Essencial para posicionar o botão Fechar */
   padding-top: 2.5rem;
+  max-width: 600px;      
+  max-height: 400px;     
+  overflow-y: auto;      /* rolagem vertical se o texto for grande */
+  word-wrap: break-word; /* quebra palavras muito longas */
+  white-space: pre-wrap; 
+  border-radius: 8px;
 }
 
 .closeButton {
@@ -29,7 +34,7 @@
   right: 10px; 
   background: none; 
   border: none; 
-  color: #fff;
+  color: var(--text-color);
   font-size: 1.5rem;
   cursor: pointer;
   padding: 5px 10px;

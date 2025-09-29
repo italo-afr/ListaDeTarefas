@@ -41,6 +41,7 @@
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 }
 
+
 .taskCard {
   background-color: var(--card-background);
   padding: 1.5rem;
@@ -52,6 +53,13 @@
 .taskCard:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .taskCard h2 {

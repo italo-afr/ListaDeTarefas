@@ -110,7 +110,7 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
         {localTasks
             .filter(task => task.finish_date === todayString)
             .map((task, index) => (
-                <div key={index} className={styles.todayTask}>
+                <div key={index} className={styles.todayTask} onClick={() => navigate(`/dashboard/entrada?taskId=${task.id}`)}>
                     <span>{task.title}</span>
                 </div>
         ))}

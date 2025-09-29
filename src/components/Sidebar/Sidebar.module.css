@@ -154,6 +154,13 @@
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background-color: var(--background-color-dark);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.todayTask:hover {
+  background-color: var(--hover-color);
+  border-color: var(--primary-color);
 }
 
 .todayTask span {

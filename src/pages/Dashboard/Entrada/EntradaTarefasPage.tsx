@@ -5,7 +5,7 @@ import { Modal } from '../../../components/Modal/Modal';
 import { ptBR } from 'date-fns/locale';
 import { format, parseISO } from 'date-fns';
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export function EntradaTarefas() {
 
@@ -20,13 +20,31 @@ export function EntradaTarefas() {
         completed_at: string | null;
     }
 
+    // Estados do componente do 'Encerram Hoje'
+    const [searchParams] = useSearchParams();
+    const taskId = searchParams.get("taskId");
+
+    // Estados do componente 'Caixa de Entrada'
     const [searchTerm, setSearchTerm] = useState('');
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    // Estados do Modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+
+    // useEffect para abrir o modal se taskId estiver presente na URL
+    useEffect(() => {
+        if (taskId && tasks.length > 0) {
+        const task = tasks.find(t => t.id === Number(taskId));
+        if (task) {
+            setSelectedTask(task);
+            setIsModalOpen(true);
+        }
+        }
+    }, [taskId, tasks]);
 
     // useEffect para buscar as tarefas (sem alterações)
     useEffect(() => {
@@ -69,21 +87,16 @@ export function EntradaTarefas() {
 
     // Funções de controle do Modal (sem alterações)
     const handleDeleteTask = (taskIdToDelete: number) => {
-  // 1. Atualização Otimista da UI: Remove a tarefa da lista local imediatamente
   setTasks(currentTasks => currentTasks.filter(task => task.id !== taskIdToDelete));
   
-  // 2. Chama a API em segundo plano
   deleteTask(taskIdToDelete).catch(error => {
     console.error("Falha ao deletar no servidor:", error);
-    // Opcional: Adicionar lógica para mostrar a tarefa de volta se a API falhar
   });
 };
 
 const handleCompleteTask = (taskIdToComplete: number) => {
-  // A lógica é a mesma da exclusão: removemos a tarefa da lista de "Entrada"
   setTasks(currentTasks => currentTasks.filter(task => task.id !== taskIdToComplete));
   
-  // E chamamos a API para marcar como concluída em segundo plano
   const completedAt = new Date().toISOString();
   updateTaskCompletion(taskIdToComplete, true, completedAt).catch(error => {
     console.error("Falha ao concluir no servidor:", error);
@@ -151,11 +164,11 @@ const handleCompleteTask = (taskIdToComplete: number) => {
             
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 {selectedTask && (
-                    <div>
-                        <h2>{selectedTask.title}</h2>
-                        <p style={{ marginTop: '2rem', lineHeight: '1.6' }}>
-                            {selectedTask.description}
-                        </p>
+                    <div className="modalContent">
+                    <h2>{selectedTask.title}</h2>
+                    <p>
+                        {selectedTask.description}
+                    </p>
                     </div>
                 )}
             </Modal>
