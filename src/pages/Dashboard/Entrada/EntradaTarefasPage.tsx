@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import styles from './EntradaTarefas.module.css';
-import { getIncompleteTasks, updateTaskCompletion, deleteTask } from '../../../components/GetSupabase/AllService';
+import { getIncompleteTasks, updateTaskCompletion, deleteTask, getTasksByProject } from '../../../components/GetSupabase/AllService';
 import { Modal } from '../../../components/Modal/Modal';
 import { ptBR } from 'date-fns/locale';
 import { format, parseISO } from 'date-fns';
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 
 export function EntradaTarefas() {
   const navigate = useNavigate();
@@ -19,6 +19,8 @@ export function EntradaTarefas() {
     completed: boolean;
     completed_at: string | null;
   }
+
+  const { projectId } = useParams<{ projectId: string }>();
 
   const [searchParams] = useSearchParams();
   const taskId = searchParams.get("taskId");
@@ -58,6 +60,29 @@ export function EntradaTarefas() {
       }
     }
   }, [taskId, tasks]);
+  
+  useEffect(() => {
+    const fetchTasks = async () => {
+        setLoading(true);
+        let response;
+        if (projectId) {
+            // Se temos um ID de projeto na URL, buscamos as tarefas daquele projeto
+            response = await getTasksByProject(projectId);
+        } else {
+            // Se não, busca todas as tarefas da Caixa de Entrada
+            response = await getIncompleteTasks();
+        }
+        const { data, error } = response;
+        if (error) {
+            console.error('Erro ao buscar tarefas:', error);
+        } else if (data) {
+            setTasks(data);
+        }
+        setLoading(false);
+    };
+
+    fetchTasks();
+}, [projectId]);
 
   // Modal trava scroll
   useEffect(() => {

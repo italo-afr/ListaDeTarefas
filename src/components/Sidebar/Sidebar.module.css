@@ -123,6 +123,126 @@
   font-size: 1.2rem;
 }
 
+/* Projetos adicionais */
+
+.projectsSection {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.projectsTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color-light);
+  text-transform: uppercase; /* Alinha com os outros itens */
+  margin-bottom: 8px;
+}
+
+.projectsNav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.projectsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 0 8px;
+}
+
+.addProjectButton {
+  background: none;
+  border: none;
+  color: var(--text-color-light);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.addProjectButton:hover {
+  background-color: var(--hover-color);
+}
+
+.projectLink {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.projectLinkContent {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-grow: 1;
+}
+
+.deleteProjectButton {
+  background: none;
+  border: none;
+  color: var(--text-color-light);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+  margin-left: auto;
+  display: flex; 
+  align-items: center; 
+}
+
+/* Mostra o botão de apagar ao passar o mouse sobre o link */
+.navItem:hover .deleteProjectButton {
+  opacity: 1;
+}
+
+.deleteProjectButton:hover {
+  background-color: var(--hover-color);
+  color: var(--red-color);
+}
+
+.confirmButtonDanger {
+  background-color: var(--red-color);
+  color: var(--text-color-light);
+}
+
+/* Estilos para o formulário do modal */
+.formGroup {
+  margin: 1.5rem 0;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color-light);
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--text-color);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+
 /* --- Tarefas de Hoje --- */
 .todayTasks {
   display: flex;
@@ -252,4 +372,50 @@
 .themeButton:hover {
   background-color: var(--hover-color);
   color: var(--text-color); /* Usa a cor de texto principal no hover */
+}
+
+/* Container dos botões do modal */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem; 
+  margin-top: 2rem; 
+}
+
+.modalActions button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid transparent; /* Adiciona uma borda transparente para manter o tamanho */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, border-color 0.2s;
+  background: var(--card-background);
+  color: var(--text-color);
+}
+
+.modalActions button:hover {
+  background-color: var(--hover-color);
+}
+
+/* Botão de Cancelar */
+.cancelButton {
+  background-color: var(--card-background); 
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.cancelButton:hover {
+  background-color: var(--hover-color);
+  border-color: var(--border-color);
+}
+
+/* Botão de Apagar */
+.confirmButtonDanger {
+  background-color: var(--red-color); 
+  color: var(--text-color);
+}
+
+.confirmButtonDanger:hover {
+  background-color: var(--red-hover-color);
 }

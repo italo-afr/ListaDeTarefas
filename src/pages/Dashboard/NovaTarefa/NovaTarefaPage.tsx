@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './NovaTarefaPage.module.css';
-import { createTask, getTaskById, updateTask } from '../../../components/GetSupabase/AllService';
+import { createTask, getTaskById, updateTask, getProjects } from '../../../components/GetSupabase/AllService';
 import { useEffect, useRef } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -15,7 +15,7 @@ export function NovaTarefaPage() {
     
     const navigate = useNavigate();
     
-    const { taskId } = useParams<{ taskId: string }>(); // Pega o ID da tarefa dos parâmetros da URL
+    const { taskId } = useParams<{ taskId: string }>(); 
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -25,6 +25,10 @@ export function NovaTarefaPage() {
     const datePickerRef = useRef<HTMLDivElement>(null);
     const [startTime, setStartTime] = useState(''); 
     const [finishTime, setFinishTime] = useState('');
+
+    // Carregar projetos disponíveis
+    const [projects, setProjects] = useState<{ id: string; name: string }[]>([]); 
+    const [selectedProjectId, setSelectedProjectId] = useState('');
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,6 +41,7 @@ export function NovaTarefaPage() {
         finish_date: finish_date ? finish_date.toISOString() : new Date().toISOString(),
         start_time: startTime,
         finish_time: finishTime,
+        project_id: selectedProjectId || null,
     };
 
     if (taskId) {
@@ -100,6 +105,17 @@ export function NovaTarefaPage() {
         };
     }, [datePickerRef]);
 
+    // Carregar projetos disponíveis
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const { data } = await getProjects();
+            if (data) {
+                setProjects(data);
+            }
+        };
+        fetchProjects();
+    }, []);
+
 
     return (
         <div className={styles.pageContainer}>
@@ -115,6 +131,23 @@ export function NovaTarefaPage() {
 
                 <label>Descrição</label>
                 <TextareaAutosize value={description} minRows={3} onChange={(e) => setDescription(e.target.value)} className={styles.autoSizingTextarea} required />
+                    <label htmlFor="project-select">Projeto</label>
+                    <div className={styles.formGroup}>
+                        
+                        <select
+                            id="project-select"
+                            value={selectedProjectId}
+                            onChange={(e) => setSelectedProjectId(e.target.value)}
+                            className={styles.selectInput}
+                        >
+                            <option value="">Nenhum (Caixa de Entrada)</option>
+                            {projects.map(project => (
+                                <option key={project.id} value={project.id}>
+                                    {project.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 <div className={styles.formGroup}>
                     <div className={styles.formStartDate}>
                         <label htmlFor="date-input">Início</label>

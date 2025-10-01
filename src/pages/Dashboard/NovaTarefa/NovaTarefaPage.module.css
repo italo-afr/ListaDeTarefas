@@ -25,7 +25,7 @@
   margin-top: 1.5rem;
 }
 
-.form input, .form textarea {
+.form input, .form textarea, .selectInput {
   width: 100%;
   padding: 12px;
   border-radius: 6px;
@@ -34,6 +34,7 @@
   color: var(--text-color);
   font-size: 1rem;
   box-sizing: border-box; 
+
 }
 
 .autoSizingTextarea {
@@ -46,6 +47,7 @@
   font-family: inherit;
   resize: none;
   line-height: 1.5;
+  max-height: 250px;
 }
 
 .form label {

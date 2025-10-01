@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5%; /* Usa porcentagem para ser mais responsivo */
+  padding: 1rem 5%;
   background-color: rgba(26, 26, 26, 0.8); /* Fundo semi-transparente */
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
@@ -42,7 +42,7 @@
 
 .navButton {
   background-color: var(--primary-color);
-  color: #fff !important; /* Força a cor do texto a ser branca */
+  color: #fff !important;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   transition: background-color 0.2s;
@@ -140,7 +140,7 @@
 .dashboardPreview {
   padding: 6rem 5%;
   text-align: center;
-  background-color: var(--sidebar-background); /* Cor de fundo ligeiramente diferente */
+  background-color: var(--sidebar-background);
 }
 
 .dashboardPreview h2 {
@@ -150,17 +150,23 @@
 }
 
 .imageContainer {
-  display: grid; /* Usa grid para melhor alinhamento */
+  display: grid;
+  grid-auto-rows: auto;
   grid-template-columns: 1fr;
   gap: 2rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
-/* Em telas maiores, as imagens ficam lado a lado */
 @media (min-width: 768px) {
   .imageContainer {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .fullWidthImage {
+    grid-column: 1 / -1;
+    max-width: 900px;
+    margin: 0 auto;
   }
 }
 

@@ -7,7 +7,8 @@ export function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dashboardImgSrc = "/DashboardPrincipal.png";
-  const calendarImgSrc = "/CriarNovaTarefaDashboard.png"; 
+  const NovaTarefaImgSrc = "/CriarNovaTarefaDashboard.png";
+  const calendarViewImgSrc = "/Calendario.png";
 
   return (
     <div className={styles.homeContainer}>
@@ -60,8 +61,8 @@ export function HomePage() {
         <h2>Uma interface limpa, feita para focar no que importa</h2>
         <div className={styles.imageContainer}>
             <img src={dashboardImgSrc} alt="Print do Dashboard" />
-            <img src={calendarImgSrc} alt="Print do Calendário" />
-
+            <img src={NovaTarefaImgSrc} alt="Print do Envio de Tarefas" />
+            <img src={calendarViewImgSrc} alt="Print da Visualização do Calendário" className={styles.fullWidthImage} />
         </div>
       </section>
 

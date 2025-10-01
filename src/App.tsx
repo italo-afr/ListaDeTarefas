@@ -74,6 +74,7 @@ function DashboardRoutes({ theme, toggleTheme }: AppProps) {
         <Route path="nova-tarefa" element={<NovaTarefaPage />} />
         <Route path="editar-tarefa/:taskId" element={<NovaTarefaPage />} />
         <Route path="entrada" element={<EntradaTarefas />} />
+        <Route path="project/:projectId" element={<EntradaTarefas />} />
         <Route path="concluido" element={<ConcluidoPage />} />
         <Route path="calendario" element={<CalendarioPage />} />
       </Route>

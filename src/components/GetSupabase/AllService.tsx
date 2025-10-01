@@ -82,7 +82,7 @@ export const updateTaskCompletion = async (taskId: number, completed: boolean, c
         .update({ completed, completed_at })
         .eq('id', taskId);
     return { data, error };
-};
+};  
 
 // Deleta uma tarefa
 export const deleteTask = async (taskId: number) => {
@@ -130,4 +130,60 @@ export const updateTask = async (taskId: string, updates: any) => {
     .eq('id', taskId);
 
   return { data, error };
+};
+
+// Busca todos os projetos do usuário logado
+export const getProjects = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { data: [], error: new Error("Usuário não autenticado") };
+
+    const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('name', { ascending: true });
+
+    return { data, error };
+};
+
+// Cria um novo projeto
+export const createProject = async (projectName: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { data: null, error: new Error("Usuário não autenticado") };
+
+    const { data, error } = await supabase
+        .from('projects')
+        .insert([{
+            name: projectName,
+            user_id: user.id
+        }])
+        .select() 
+        .single();
+    return { data, error };
+};
+
+// Busca as tarefas PENDENTES de um projeto específico
+export const getTasksByProject = async (projectId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { data: [], error: null };
+
+    const { data, error } = await supabase
+        .from('tableList')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('completed', false)
+        .eq('project_id', projectId) // <-- O FILTRO MÁGICO
+        .order('created_at', { ascending: false });
+    
+    return { data, error };
+};
+
+// Deleta um projeto pelo seu ID
+export const deleteProject = async (projectId: number) => {
+    const { error } = await supabase
+        .from('projects')
+        .delete()
+        .eq('id', projectId);
+
+    return { error };
 };

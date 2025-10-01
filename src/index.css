@@ -41,6 +41,13 @@ body.modal-open {
 }
 
 .light {
+
+  --success-color: #28a745;
+  --success-hover-color: #32c76a;
+  --red-color: #dc3545;
+  --red-hover-color: #e55361;
+
+  /* Tema claro */
   --background-color: #f4f4f4;
   --card-background: #ffffff;
   --sidebar-background: #e9e9e9;
