@@ -187,3 +187,20 @@ export const deleteProject = async (projectId: number) => {
 
     return { error };
 };
+
+// Atualiza os dados do usuário na tabela de autenticação
+export const updateUserData = async (updates: { full_name?: string, password?: string, email?: string }) => {
+    const { data, error } = await supabase.auth.updateUser({
+        data: updates
+    });
+    return { data, error };
+};
+
+// Uma função específica para atualizar o nome no perfil público
+export const updateUserProfileName = async (userId: string, newName: string) => {
+    const { data, error } = await supabase
+        .from('profiles')
+        .update({ full_name: newName })
+        .eq('id', userId);
+    return { data, error };
+};

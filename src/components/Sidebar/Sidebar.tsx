@@ -1,11 +1,10 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
-import { Sun, Moon, UserCircle, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox, Folder, Trash2 } from 'lucide-react';
-import { supabase } from '../../config/supabaseClient';
+import { Sun, Moon, UserCircle, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox, Folder, Trash2, FolderPlus } from 'lucide-react';
 import { Modal } from '../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { getTasks, getUserProfile, getProjects, createProject, deleteProject } from '../GetSupabase/AllService';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { AppProps } from '../../App';
 
 interface Task {
@@ -27,10 +26,9 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
   const [profile, setProfile] = useState<UserProfile>({});
   const [layersVisible, setLayersVisible] = useState(true);
   const [localTasks, setLocalTasks] = useState<Task[]>([]);
-  interface Project {
-    id: number;
-    name: string;
-  }
+
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
 
   // Modal para criação de novos projetos
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
@@ -41,6 +39,11 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
   // Data de hoje em formato YYYY-MM-DD
   const todayString = new Date().toISOString().slice(0, 10);
 
+  interface Project {
+    id: number;
+    name: string;
+  }
+  
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.navItem} ${styles.active}` : styles.navItem;
   };
@@ -73,15 +76,6 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
   interface UserProfile {
     full_name?: string;
   }
-
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('Erro ao fazer logout:', error);
-    } else {
-      navigate('/');
-    }
-  };
 
   const fetchUserProfile = async () => {
     const profile = await getUserProfile();
@@ -120,6 +114,24 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
     fetchTasks();
   }, []);
 
+  // Menu de perfil
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+        if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
+            setIsProfileMenuOpen(false);
+        }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, [profileMenuRef]);
+  function handleLogout(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    event.preventDefault();
+    localStorage.removeItem('userToken'); 
+    navigate('/login');
+  }
+
   return (
     <div className={`${styles.sidebar} ${!layersVisible ? styles.sidebarClosed : ''}`}>
       <header className={styles.header}>
@@ -150,7 +162,7 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
       <div className={styles.projectsSection}>
         <div className={styles.projectsHeader}>
             <h2 className={styles.projectsTitle}>Projetos</h2>
-            <button onClick={() => setIsProjectModalOpen(true)} className={styles.addProjectButton}>+</button>
+             <button onClick={() => setIsProjectModalOpen(true)} className={styles.addProjectIconButton}><FolderPlus size={20} /></button>
         </div>
         <nav className={styles.projectsNav}>
             {projects.map(project => (
@@ -160,7 +172,9 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
                     className={({ isActive }) => `${styles.navItem} ${styles.projectLink} ${isActive ? styles.active : ''}`}
                 >
                     <div className={styles.projectLinkContent}>
-                        <Folder size={18} />
+                        <div className={styles.projectIcon}>
+                            <Folder size={18} />
+                          </div>
                         <span>{project.name}</span>
                     </div>
                     <button 
@@ -191,13 +205,31 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
       </div>
 
       <footer className={styles.footer}>
-        <div className={styles.userActions}>
-          <a href="#" className={styles.navPerfil}>
+    <div className={styles.profileMenuContainer} ref={profileMenuRef}>
+        {/* Este é o botão que abre/fecha o menu */}
+        <button onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)} className={styles.navPerfil}>
             <UserCircle size={20} />
-            <span>{profile.full_name}</span>
-          </a>
-          <button onClick={handleLogout} className={styles.logoutButton}>Sair</button>
-        </div>
+            <span>{profile.full_name || 'Meu Perfil'}</span>
+        </button>
+        {/* Menu suspenso */}
+        {isProfileMenuOpen && (
+            <div className={styles.profileMenu}>
+                <Link to="/dashboard/perfil#nome" onClick={() => setIsProfileMenuOpen(false)}>
+                    Alterar Nome
+                </Link>
+                <Link to="/dashboard/perfil#email" onClick={() => setIsProfileMenuOpen(false)}>
+                    Alterar E-mail
+                </Link>
+                <Link to="/dashboard/perfil#senha" onClick={() => setIsProfileMenuOpen(false)}>
+                    Alterar Senha
+                </Link>
+                <div className={styles.menuDivider}></div>
+                  <button onClick={handleLogout} className={styles.logoutMenuItem}>
+                      Sair
+                  </button>
+            </div>
+        )}
+    </div>
         <div className={styles.navNotificacao}>
           <Bell size={18} />
         </div>

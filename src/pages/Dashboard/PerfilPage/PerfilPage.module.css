@@ -1,0 +1,128 @@
+.pageContainer {
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.settingsContainer {
+  display: flex;
+  gap: 2rem;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.tabsNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-color);
+  padding-right: 1.5rem;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  color: var(--text-color-light);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tabButton:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color);
+}
+
+.activeTab {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.tabContent {
+  flex-grow: 1; /* Faz o conteúdo ocupar o resto do espaço */
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.formSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.formSection label {
+  margin-bottom: 0.5rem;
+  color: var(--text-color-light);
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.submitButton {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 1rem;
+  align-self: flex-start; 
+}
+
+.submitButton:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color);
+  transition: background-color 0.2s, color 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.actionsContainer {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+
+.logoutButton {
+  background-color: transparent;
+  border: 1px solid var(--red-color);
+  color: var(--red-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: var(--red-color);
+  color: var(--text-color);
+}

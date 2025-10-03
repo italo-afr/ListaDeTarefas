@@ -12,6 +12,7 @@ import { EntradaTarefas } from "./pages/Dashboard/Entrada/EntradaTarefasPage";
 import { NovaTarefaPage } from "./pages/Dashboard/NovaTarefa/NovaTarefaPage";
 import { ConcluidoPage } from "./pages/Dashboard/Concluido/ConcluidoPage";
 import { CalendarioPage } from "./pages/Dashboard/Calendario/CalendarioPage";
+import { PerfilPage } from "./pages/Dashboard/PerfilPage/PerfilPage";
 
 export interface AppProps {
   toggleTheme: () => void;
@@ -77,6 +78,7 @@ function DashboardRoutes({ theme, toggleTheme }: AppProps) {
         <Route path="project/:projectId" element={<EntradaTarefas />} />
         <Route path="concluido" element={<ConcluidoPage />} />
         <Route path="calendario" element={<CalendarioPage />} />
+        <Route path="perfil" element={<PerfilPage />} />
       </Route>
     </Routes>
   );
