@@ -487,12 +487,7 @@
   font-weight: bold;
   font-size: 0.9rem;
   transition: background-color 0.2s, border-color 0.2s;
-  background: var(--card-background);
   color: var(--text-color);
-}
-
-.modalActions button:hover {
-  background-color: var(--hover-color);
 }
 
 /* Botão de Cancelar */

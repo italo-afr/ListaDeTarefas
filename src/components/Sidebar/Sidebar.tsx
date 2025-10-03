@@ -1,11 +1,11 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate  } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { Sun, Moon, UserCircle, SquareCheckBig, CalendarDays, SquarePlus, CalendarClock, PanelLeft, Bell, Inbox, Folder, Trash2, FolderPlus } from 'lucide-react';
 import { Modal } from '../../components/Modal/Modal';
-import { useNavigate } from 'react-router-dom';
 import { getTasks, getUserProfile, getProjects, createProject, deleteProject } from '../GetSupabase/AllService';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import type { AppProps } from '../../App';
+import ReactDOM from 'react-dom'; 
 
 interface Task {
   id: number;
@@ -28,7 +28,11 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
   const [localTasks, setLocalTasks] = useState<Task[]>([]);
 
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState({});
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const profileButtonRef = useRef<HTMLButtonElement>(null);
+
+  
 
   // Modal para criação de novos projetos
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
@@ -115,17 +119,36 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
   }, []);
 
   // Menu de perfil
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-        if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
-            setIsProfileMenuOpen(false);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            // Fecha o menu se o clique NÃO foi no botão E NÃO foi no menu
+            if (
+                profileButtonRef.current && !profileButtonRef.current.contains(event.target as Node) &&
+                profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)
+            ) {
+                setIsProfileMenuOpen(false);
+            }
         }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-    };
-}, [profileMenuRef]);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    // Efeito para calcular a posição do menu QUANDO ELE ABRE
+    useLayoutEffect(() => {
+        if (isProfileMenuOpen && profileButtonRef.current) {
+            const rect = profileButtonRef.current.getBoundingClientRect();
+            setMenuPosition({
+                position: 'fixed',
+                // Posiciona o menu para que o fundo dele fique alinhado com o topo do botão
+                bottom: `${window.innerHeight - rect.top + 10}px`,
+                left: `${rect.left}px`,
+            });
+        }
+    }, [isProfileMenuOpen]);
+
   function handleLogout(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     event.preventDefault();
     localStorage.removeItem('userToken'); 
@@ -204,40 +227,41 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
         ))}
       </div>
 
-      <footer className={styles.footer}>
-    <div className={styles.profileMenuContainer} ref={profileMenuRef}>
-        {/* Este é o botão que abre/fecha o menu */}
-        <button onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)} className={styles.navPerfil}>
-            <UserCircle size={20} />
-            <span>{profile.full_name || 'Meu Perfil'}</span>
-        </button>
-        {/* Menu suspenso */}
-        {isProfileMenuOpen && (
-            <div className={styles.profileMenu}>
-                <Link to="/dashboard/perfil#nome" onClick={() => setIsProfileMenuOpen(false)}>
-                    Alterar Nome
-                </Link>
-                <Link to="/dashboard/perfil#email" onClick={() => setIsProfileMenuOpen(false)}>
-                    Alterar E-mail
-                </Link>
-                <Link to="/dashboard/perfil#senha" onClick={() => setIsProfileMenuOpen(false)}>
-                    Alterar Senha
-                </Link>
-                <div className={styles.menuDivider}></div>
-                  <button onClick={handleLogout} className={styles.logoutMenuItem}>
-                      Sair
-                  </button>
-            </div>
-        )}
-    </div>
-        <div className={styles.navNotificacao}>
-          <Bell size={18} />
+    <footer className={styles.footer}>
+        <div className={styles.profileMenuContainer}>
+            {/* Este é o botão que abre/fecha o menu */}
+            <button onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)} className={styles.navPerfil} ref={profileButtonRef} >
+                <UserCircle size={20} />
+                <span>{profile.full_name || 'Meu Perfil'}</span>
+            </button>
+            {/* Menu suspenso */}
+            {isProfileMenuOpen && ReactDOM.createPortal(
+                <div className={styles.profileMenu} ref={profileMenuRef} style={menuPosition}>
+                    <Link to="/dashboard/perfil#nome" onClick={() => setIsProfileMenuOpen(false)}>
+                        Alterar Nome
+                    </Link>
+                    <Link to="/dashboard/perfil#email" onClick={() => setIsProfileMenuOpen(false)}>
+                        Alterar E-mail
+                    </Link>
+                    <Link to="/dashboard/perfil#senha" onClick={() => setIsProfileMenuOpen(false)}>
+                        Alterar Senha
+                    </Link>
+                    <div className={styles.menuDivider}></div>
+                      <button onClick={handleLogout} className={styles.logoutMenuItem}>
+                          Sair
+                      </button>
+                </div>,
+                document.body
+            )}
         </div>
-        <button onClick={toggleTheme} className={styles.themeButton}>
-          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
+            <div className={styles.navNotificacao}>
+              <Bell size={18} />
+            </div>
+            <button onClick={toggleTheme} className={styles.themeButton}>
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
 
-      </footer>
+    </footer>
 
       {/* Modal para criar novos projetos */}
       <Modal isOpen={isProjectModalOpen} onClose={() => setIsProjectModalOpen(false)}>
