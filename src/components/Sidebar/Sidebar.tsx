@@ -294,7 +294,7 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
                     <div>
                         <h2>Apagar Projeto?</h2>
                         <p>A ação não pode ser desfeita. As tarefas dentro de <strong>"{projectToDelete.name}"</strong> serão movidas para a Caixa de Entrada.</p>
-                        <div className={styles.modalActions}>
+                        <div className={styles.modalActionsDelete}>
                             <button onClick={() => setProjectToDelete(null)} className={styles.cancelButton}>Cancelar</button>
                             <button onClick={() => handleDeleteProject(projectToDelete.id)} className={styles.confirmButtonDanger}>Sim, apagar</button>
                         </div>
