@@ -14,7 +14,7 @@ export function HomePage() {
     <div className={styles.homeContainer}>
       {/* NAVBAR */}
       <header className={styles.navbar}>
-        <div className={styles.logo}>TaskManager</div>
+        <div className={styles.logo}>Lista de Tarefas</div>
         <nav className={`${styles.navLinks} ${isMenuOpen ? styles.open : ''}`}>
           <a href="#features">Funcionalidades</a>
           <a href="#about">Sobre</a>
@@ -30,7 +30,7 @@ export function HomePage() {
         <div className={styles.heroContent}>
           <h1 className={styles.title}>A maneira simples de organizar seu trabalho e sua vida.</h1>
           <p className={styles.subtitle}>
-            Planeje, acompanhe e conclua suas metas. Transforme o caos em clareza com o TaskManager.
+            Planeje, acompanhe e conclua suas metas. Transforme o caos em clareza com o Lista de Tarefas.
           </p>
           <div className={styles.heroButtons}>
             <Link to="/dashboard" className={styles.ctaButton}>Comece a usar gratuitamente</Link>
@@ -76,7 +76,7 @@ export function HomePage() {
       
       {/* NOVO: Rodapé */}
       <footer className={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} TaskManager. Todos os direitos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} Lista de Tarefas. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

@@ -17,14 +17,16 @@ interface SidebarProps extends AppProps {
     theme: string;
     toggleTheme: () => void;
     tasks: any[];
+    profile: any;
+    isOpen: boolean;
+    onToggle: () => void;
 }
 
-export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
+export const Sidebar = ({ toggleTheme, theme, isOpen, onToggle }: SidebarProps) => {
 
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState<UserProfile>({});
-  const [layersVisible, setLayersVisible] = useState(true);
   const [localTasks, setLocalTasks] = useState<Task[]>([]);
 
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -156,10 +158,10 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
   }
 
   return (
-    <div className={`${styles.sidebar} ${!layersVisible ? styles.sidebarClosed : ''}`}>
+    <div className={`${styles.sidebar} ${!isOpen ? styles.sidebarClosed : ''}`}>
       <header className={styles.header}>
         <h1 className={styles.title}>Gerenciando Tarefas</h1>
-        <div className={styles.menu} onClick={() => setLayersVisible(!layersVisible)}>
+        <div className={styles.menu} onClick={onToggle}>
           <PanelLeft size={20} />
         </div>
       </header>
@@ -294,7 +296,7 @@ export const Sidebar = ({ toggleTheme, theme }: SidebarProps) => {
                     <div>
                         <h2>Apagar Projeto?</h2>
                         <p>A ação não pode ser desfeita. As tarefas dentro de <strong>"{projectToDelete.name}"</strong> serão movidas para a Caixa de Entrada.</p>
-                        <div className={styles.modalActionsDelete}>
+                        <div className={styles.modalActions}>
                             <button onClick={() => setProjectToDelete(null)} className={styles.cancelButton}>Cancelar</button>
                             <button onClick={() => handleDeleteProject(projectToDelete.id)} className={styles.confirmButtonDanger}>Sim, apagar</button>
                         </div>

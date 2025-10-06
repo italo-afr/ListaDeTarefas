@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 5%;
-  background-color: rgba(26, 26, 26, 0.8); /* Fundo semi-transparente */
+  background-color: var(--navbar-background); /* Fundo semi-transparente */
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   position: sticky;
@@ -177,7 +177,7 @@
   border: 1px solid var(--border-color);
 }
 
-/* --- ABOUT SECTION & FOOTER --- */
+/* --- ABOUT and FOOTER --- */
 .about {
   padding: 4rem 2rem;
   text-align: center;

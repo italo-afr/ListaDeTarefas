@@ -283,12 +283,12 @@
 }
 
 .active {
-  background-color: var(--primary-color); 
-  color: #fff; 
+  background-color: var(--primary-color) !important; 
+  color: #fff !important; 
 }
 
 .active svg {
-  color: #fff;
+  color: #fff !important;
 }
 
 .todayTasksList {
@@ -365,13 +365,13 @@
 }
 
 .profileMenu {
-  position: absolute;
+  position: fixed;
   bottom: calc(100% + 10px); /* Posiciona o menu acima do botão */
   left: 0;
   width: 220px;
-  background-color: var(--card-background);
   border: 1px solid var(--border-color);
   border-radius: 8px;
+  background-color: var(--card-background);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 100;
   padding: 0.5rem;
@@ -531,5 +531,37 @@
 }
 
 .confirmButtonDanger:hover {
-  background-color: var(--red-hover-color);
+    background-color: var(--red-hover-color);
+  }
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed; /* Fica por cima do conteúdo */
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1100;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .header {
+    justify-content: end;
+  }
+
+  .title {
+    size: 1rem;
+  }
+
+  .sidebarClosed {
+    transform: translateX(-100%);
+    width: 300px;
+  }
+
+  .menu {
+    display: none;
+  }
 }

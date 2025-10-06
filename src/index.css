@@ -29,6 +29,7 @@ body.modal-open {
   --red-hover-color: #e55361;
 
   /* Tema escuro */
+  --navbar-background: rgba(26, 26, 26, 0.8);
   --background-color: #1a1a1a;
   --card-background: #2e2e2e;
   --sidebar-background: #232627;
@@ -48,6 +49,7 @@ body.modal-open {
   --red-hover-color: #e55361;
 
   /* Tema claro */
+  --navbar-background: rgba(198, 198, 198, 0.8);
   --background-color: #f4f4f4;
   --card-background: #ffffff;
   --sidebar-background: #e9e9e9;

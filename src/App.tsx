@@ -22,7 +22,7 @@ export interface AppProps {
 function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true); 
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
