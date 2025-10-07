@@ -154,3 +154,56 @@
 .cancelButton:hover {
   background-color: var(--red-hover-color);
 }
+
+@media (max-width: 768px) {
+  .taskList {
+    grid-template-columns: 1fr; /* Uma coluna no mobile */
+  }
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .searchContainer {
+    width: 100%;
+  }
+  .searchInput {
+    width: 100%;
+  }
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+
+  .taskCard2Layer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .termDate {
+    text-align: left;
+    padding-top: 0;
+  }
+  .taskCard {
+    padding: 1rem;
+  }
+  .taskCard h2 {
+    font-size: 1.1rem;
+  }
+  .taskCard p {
+    font-size: 0.9rem;
+  }
+  .taskCard button {
+    font-size: 0.75rem;
+    padding: 6px;
+  }
+  .modalActions {
+    align-items: stretch;
+  }
+  .confirmButton, .cancelButton {
+    width: 100%;
+    text-align: center;
+  }
+  .centeredMessage {
+    font-size: 1rem;
+  }
+}

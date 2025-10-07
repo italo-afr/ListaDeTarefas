@@ -27,7 +27,6 @@
     top: 1rem;
     left: 1rem;
     z-index: 1200; 
-    background-color: rgba(40, 40, 40, 0.6);
     backdrop-filter: blur(5px);
     border: 1px solid var(--border-color);
     border-radius: 8px;

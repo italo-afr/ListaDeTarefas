@@ -1,113 +1,181 @@
 .title {
-    font-size: 2rem;
-    margin-bottom: 10px;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
 .description {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
 }
 
 .editButton {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
-
 .pageContainer {
-    padding: 1rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .pageContainer h1 {
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
 }
 
 .pageContainer p {
-    margin-bottom: 1.5rem;
-    color: #a0a0a0;
+  margin-bottom: 1.5rem;
+  color: #a0a0a0;
 }
 
 .calendarContainer {
-    flex-grow: 1; 
-    font-size: 14px;
+  flex-grow: 1;
+  font-size: 14px;
 }
 
 .calendarContainer :global(.rbc-calendar) {
-    background-color: var(--card-background);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+  background-color: var(--card-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
 
 .calendarContainer :global(.rbc-toolbar) {
-    border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .calendarContainer :global(.rbc-toolbar .rbc-toolbar-label) {
-    font-size: 1.5em;
-    font-weight: 600;
-    color: var(--text-color);
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 .calendarContainer :global(.rbc-btn-group button) {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .calendarContainer :global(.rbc-btn-group button:hover),
 .calendarContainer :global(.rbc-btn-group button:focus) {
-    background-color: var(--hover-color);
-    border-color: var(--border-color);
+  background-color: var(--hover-color);
+  border-color: var(--border-color);
 }
 
 .calendarContainer :global(.rbc-btn-group button.rbc-active) {
-    background-color: var(--primary-color);
-    border-color: var(--primary-hover);
-    color: var(--text-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-hover);
+  color: var(--text-color);
 }
 
 .calendarContainer :global(.rbc-header) {
-    background-color: var(--card-background);
-    border-bottom: 1px solid var(--border-color);
-    padding: 10px 0;
-    font-weight: bold;
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 0;
+  font-weight: bold;
 }
 
 .calendarContainer :global(.rbc-day-bg) {
-    border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
 }
 .calendarContainer :global(.rbc-day-bg:first-child) {
-    border-left: none;
+  border-left: none;
 }
 
 .calendarContainer :global(.rbc-off-range-bg) {
-    background-color: var(--background-color-dark);
+  background-color: var(--background-color-dark);
 }
 
 .calendarContainer :global(.rbc-today) {
-    background-color: var(--hover-color);
+  background-color: var(--hover-color);
 }
 
 .calendarContainer :global(.rbc-event) {
-    background-color: var(--primary-color);
-    border: 1px solid var(--primary-hover);
-    padding: 4px 8px;
-    border-radius: 4px;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-hover);
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 .calendarContainer :global(.rbc-show-more) {
-    color: var(--primary-hover);
-    background-color: transparent;
+  color: var(--primary-hover);
+  background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
+    align-items: end;
+  }
+
+  .calendarContainer {
+    font-size: 12px;
+    overflow-x: auto;
+  }
+
+  .pageContainer h1 {
+    font-size: 2rem;
+  }
+
+  :global(.rbc-toolbar) {
+    flex-direction: column; /* Empilha os controlos do calendário */
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  :global(.rbc-calendar) {
+    min-height: 200px;
+    font-size: 12px; /* Ajusta o tamanho da fonte para telas menores */
+  }
+
+  :global(.rbc-month-view .rbc-day-bg) {
+    border-left: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+  }
+
+  /* Garante que a primeira coluna não tem borda dupla */
+  :global(.rbc-month-view .rbc-day-bg:first-child) {
+    border-left: none;
+  }
+
+  /* Faz com que a linha de dias da semana (Dom, Seg, Ter...) também tenha borda */
+  :global(.rbc-month-view .rbc-header) {
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+  }
+
+  /* Garante que o primeiro dia da semana não tem borda dupla */
+  :global(.rbc-month-view .rbc-header:first-child) {
+    border-left: none;
+  }
+
+  /* Melhora a aparência do dia de "Hoje" */
+  :global(.rbc-day-bg.rbc-today) {
+    background-color: var(--hover-color);
+  }
+
+    .editButton {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    .title {
+        font-size: 1.5rem;
+    }
+    .description {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    .calendarContainer {
+        font-size: 10px;
+    }
+    
 }

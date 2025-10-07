@@ -122,3 +122,50 @@
 .cancelButton:hover {
   background-color: var(--red-hover-color);
 }
+
+@media (max-width: 768px) {
+    .taskList {
+        grid-template-columns: 1fr; /* Uma coluna no mobile */
+    }
+    .taskCard {
+        padding: 1rem;
+    }
+    .taskCard h2 {
+        font-size: 1.1rem;
+    }
+
+    .taskCard p {
+        font-size: 0.9rem;
+    }
+    .taskDetails {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .taskCard button {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+
+    .modalActions {
+        align-items: stretch;
+    }
+    .confirmButton, .cancelButton {
+        width: 100%;
+        text-align: center;
+    }
+    .centeredMessage {
+        font-size: 1rem;
+    }
+
+    .taskCard .taskInfo {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .taskCard .taskActions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+}
