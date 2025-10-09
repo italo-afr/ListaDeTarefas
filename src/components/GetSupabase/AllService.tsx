@@ -176,7 +176,7 @@ export const getTasksByProject = async (projectId: string) => {
         .select('*')
         .eq('user_id', user.id)
         .eq('completed', false)
-        .eq('project_id', projectId) // <-- O FILTRO MÁGICO
+        .eq('project_id', projectId) 
         .order('created_at', { ascending: false });
     
     return { data, error };

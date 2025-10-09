@@ -68,11 +68,35 @@ export function HomePage() {
 
       {/* SOBRE */}
       <section id="about" className={styles.about}>
-        <h2>Sobre o projeto</h2>
-        <p>
-          Desenvolvido com as tecnologias mais modernas para uma experiência de usuário fluida e simples.
-        </p>
-      </section>
+  <h2>Sobre o Projeto</h2>
+  
+  <p>
+    Bem-vindo ao <strong>TaskManager</strong>, um projeto nascido da paixão por desenvolvimento de software e pela busca de produtividade. 
+    Na agitação do dia a dia, é fácil perder o controlo de prazos e responsabilidades. Esta aplicação foi criada para ser a solução: 
+    uma ferramenta poderosa, mas intuitiva, para gerir tudo, desde as tarefas mais simples do quotidiano até aos projetos mais complexos.
+  </p>
+
+  <h3 className={styles.subtitle}>Funcionalidades Principais</h3>
+  <ul>
+    <li><strong>Gestão Completa de Tarefas:</strong> Crie, edite, conclua e apague tarefas com uma interface rápida e animada.</li>
+    <li><strong>Organização por Projetos:</strong> Agrupe as suas tarefas em listas ou projetos personalizáveis.</li>
+    <li><strong>Detalhes Avançados:</strong> Atribua datas, horários e cores para uma identificação visual imediata.</li>
+    <li><strong>Calendário Interativo:</strong> Visualize as tarefas em vistas de mês, semana ou dia, e edite com um clique.</li>
+    <li><strong>Lembretes Automáticos:</strong> Receba e-mails de lembrete para garantir que nunca perca um prazo.</li>
+    <li><strong>Perfil de Usuário:</strong> Altere nome, e-mail ou senha em uma página dedicada e segura.</li>
+    <li><strong>Design Moderno e Responsivo:</strong> Experiência consistente em qualquer dispositivo, com tema claro e escuro.</li>
+  </ul>
+
+  <h3>A Tecnologia por Trás do Projeto</h3>
+  <ul>
+    <li><strong>Frontend:</strong> Construído com React e TypeScript, usando Vite para alta performance.</li>
+    <li><strong>Backend e Base de Dados:</strong> Supabase com PostgreSQL, autenticação e funções de banco de dados.</li>
+    <li><strong>Automação:</strong> Notificações orquestradas pelo Make.com e enviadas pelo Resend.</li>
+    <li><strong>Estilo e UX:</strong> CSS Modules e animações com Framer Motion para uma interface viva.</li>
+    <li><strong>Navegação e Datas:</strong> React Router DOM e manipulação confiável de datas com Moment.js e date-fns.</li>
+  </ul>
+</section>
+
       
       {/* NOVO: Rodapé */}
       <footer className={styles.footer}>
