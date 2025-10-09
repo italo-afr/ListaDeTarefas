@@ -17,6 +17,18 @@
   margin-bottom: 1.5rem;
 }
 
+.colorInput {
+  width: 50%;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  box-sizing: border-box;
+  margin-bottom: 1.2em;
+}
+
 .form {
   display: flex;
   flex-direction: column;

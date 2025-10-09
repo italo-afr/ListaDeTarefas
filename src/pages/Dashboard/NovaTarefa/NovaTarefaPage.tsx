@@ -12,6 +12,8 @@ import { CalendarDays } from 'lucide-react';
 import { TimeInput } from '../../../components/TimeInput/TimeInput';
 
 export function NovaTarefaPage() {
+
+    const [color, setColor] = useState('#555555');
     
     const navigate = useNavigate();
     
@@ -42,6 +44,7 @@ export function NovaTarefaPage() {
         start_time: startTime,
         finish_time: finishTime,
         project_id: selectedProjectId || null,
+        color: color,
     };
 
     if (taskId) {
@@ -130,10 +133,9 @@ export function NovaTarefaPage() {
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
 
                 <label>Descrição</label>
-                <TextareaAutosize value={description} minRows={3} onChange={(e) => setDescription(e.target.value)} className={styles.autoSizingTextarea} required />
+                <TextareaAutosize value={description} minRows={3} onChange={(e) => setDescription(e.target.value)} className={styles.autoSizingTextarea} />
                     <label htmlFor="project-select">Projeto</label>
                     <div className={styles.formGroup}>
-                        
                         <select
                             id="project-select"
                             value={selectedProjectId}
@@ -148,6 +150,17 @@ export function NovaTarefaPage() {
                             ))}
                         </select>
                     </div>
+
+                        <div className={styles.colorInput}>
+                            <label htmlFor="task-color">Cor da Tarefa</label>
+                            <input
+                                id="task-color"
+                                type="color"
+                                value={color}
+                                onChange={(e) => setColor(e.target.value)}
+                                className={styles.colorInput}
+                            />
+                        </div>
                 <div className={styles.formGroup}>
                     <div className={styles.formStartDate}>
                         <label htmlFor="date-input">Início</label>

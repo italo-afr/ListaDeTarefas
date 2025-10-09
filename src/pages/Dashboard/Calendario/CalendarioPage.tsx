@@ -17,12 +17,13 @@ interface Task {
     finish_date: string | null;
     start_time: string | null;
     finish_time: string | null;
+    color?: string;
 };
 
 export function CalendarioPage() {
     moment.locale('pt-br');
     const localizer = momentLocalizer(moment);
-
+    
     const [tasks, setTasks] = useState<Task[]>([]);
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const [date, setDate] = useState(new Date());
@@ -56,8 +57,21 @@ export function CalendarioPage() {
                 start: startDateTime,
                 end: endDateTime,
                 allDay: !task.start_time,
+                color: task.color || '#555555',
             };
     });
+
+    const eventStyleGetter = (event: any) => {
+        const style = {
+            backgroundColor: event.color || 'var(--primary-color)',
+            borderRadius: '5px',
+            opacity: 0.8,
+            color: 'white',
+            border: '0px',
+            display: 'block'
+        };
+    return { style };
+};
 
     const handleSelectTask = (event: Task) => {
         setSelectedTask(event);
@@ -86,6 +100,7 @@ export function CalendarioPage() {
                     view={view}
                     onNavigate={handleNavigate}
                     onView={handleView}
+                    eventPropGetter={eventStyleGetter} // Aplica as cores personalizadas
                     messages={{
                         next: "Próximo",
                         previous: "Anterior",

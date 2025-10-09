@@ -6,7 +6,6 @@ import { getTasks, getUserProfile, getProjects, createProject, deleteProject } f
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import type { AppProps } from '../../App';
 import ReactDOM from 'react-dom'; 
-
 interface Task {
   id: number;
   title: string;

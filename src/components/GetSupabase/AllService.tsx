@@ -7,6 +7,8 @@ type NewTask = {
     start_date: string;
     finish_time: string;
     start_time: string;
+    color?: string;
+    project_id?: string | null;
 };
 
 // Cria as tarefas
@@ -22,7 +24,9 @@ export const createTask = async (taskData: NewTask) => {
         finish_date: taskData.finish_date,
         start_time: taskData.start_time,
         finish_time: taskData.finish_time,
-        user_id: user.id
+        user_id: user.id,
+        project_id: taskData.project_id || null,
+        color: taskData.color
     };
 
     const { data, error } = await supabase
@@ -39,7 +43,7 @@ export const getTasks = async () => {
 
   const { data, error } = await supabase
     .from('tableList')
-    .select('id, title, description, start_date, finish_date, start_time, finish_time, completed')
+    .select('id, title, description, start_date, finish_date, start_time, finish_time, completed, color')
     .eq('user_id', user.id)
     .order('created_at', { ascending: false }); 
   

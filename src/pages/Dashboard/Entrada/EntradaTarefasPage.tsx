@@ -18,6 +18,7 @@ export function EntradaTarefas() {
     start_date: string;
     completed: boolean;
     completed_at: string | null;
+    color?: string;
   }
 
   const { projectId } = useParams<{ projectId: string }>();
@@ -160,6 +161,7 @@ export function EntradaTarefas() {
                 transition={{ duration: 0.3 }}
                 className={styles.taskCard}
                 onClick={() => handleTaskClick(task)}
+                style={{ borderLeft: `5px solid ${task.color || '#555555'}` }}
               >
                 <h2>{task.title}</h2>
                 <div className={styles.taskCard2Layer}>
