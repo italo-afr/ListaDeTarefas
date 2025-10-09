@@ -1,107 +1,92 @@
-<h1>Gerenciador de Tarefas Moderno</h1>
-    <blockquote>
-        <p>Um sistema de gestão de tarefas completo, construído com tecnologias modernas, focado em segurança, performance e uma excelente experiência de utilizador. Este projeto demonstra um fluxo de trabalho de desenvolvimento full-stack usando React para o frontend e Supabase como backend.</p>
-    </blockquote>
-    
-  <h2>✨ Funcionalidades</h2>
-    <ul>
-        <li><strong>Autenticação Segura de Utilizadores:</strong> Sistema completo de registo, login e logout.</li>
-        <li><strong>Gestão de Tarefas Multi-Utilizador:</strong> Cada utilizador só pode ver e gerir as suas próprias tarefas, garantido por Row Level Security (RLS) no Supabase.</li>
-        <li><strong>Operações CRUD de Tarefas:</strong> Crie, leia, atualize (ex: marcar como concluída) e apague tarefas.</li>
-        <li><strong>Perfis de Utilizador:</strong> Cada utilizador tem um perfil com o seu nome, que é criado automaticamente no registo.</li>
-        <li><strong>Visualização em Calendário:</strong> As tarefas com data de conclusão são exibidas num calendário interativo.</li>
-        <li><strong>Interface Reativa:</strong> Construído como uma Single-Page Application (SPA) com rotas protegidas.</li>
-        <li><strong>Notificações Toast:</strong> Feedbacks visuais para ações do utilizador, como limites de caracteres.</li>
-        <li><strong>Deploy Contínuo:</strong> Configurado para deploy automático na plataforma Render através do GitHub.</li>
-    </ul>
+# 📌 TaskManager - Gerenciador de Tarefas Full-Stack   
 
-  <hr>
+Um sistema completo de **gestão de tarefas** desenvolvido com **React + Supabase**, pensado para ser moderno, seguro e escalável.  
+O projeto nasceu como um simples *to-do list*, mas foi evoluindo até se tornar uma aplicação **full-stack robusta**, com autenticação, calendário interativo, organização por projetos e até envio automático de e-mails de lembrete.  
 
-  <h2>🚀 Tecnologias Utilizadas</h2>
-    <h4>Frontend:</h4>
-    <ul>
-        <li><strong>React</strong> (com Hooks e Componentes Funcionais)</li>
-        <li><strong>Vite</strong> como ambiente de desenvolvimento e build</li>
-        <li><strong>TypeScript</strong> para tipagem estática</li>
-        <li><strong>React Router</strong> para roteamento de páginas</li>
-        <li><strong>CSS Modules</strong> para estilização</li>
-    </ul>
+👉 **Demonstração online:** https://lista-de-tarefas-se28.onrender.com/
 
-  <h4>Backend (BaaS - Backend as a Service):</h4>
-    <ul>
-        <li><strong>Supabase</strong>
-            <ul>
-                <li><strong>Database:</strong> PostgreSQL</li>
-                <li><strong>Authentication:</strong> Gestão de utilizadores e sessões</li>
-                <li><strong>Security:</strong> Row Level Security (RLS)</li>
-            </ul>
-        </li>
-    </ul>
+---
+# **Funcionalidades Principais**
 
-  <h4>Bibliotecas Principais:</h4>
-    <ul>
-        <li><code>react-big-calendar</code>: Para a funcionalidade de calendário.</li>
-        <li><code>lucide-react</code>: Para ícones.</li>
-        <li><code>react-hot-toast</code>: Para notificações pop-up.</li>
-    </ul>
+- **🔐 Autenticação Completa**  
+  Cadastro, login e gerenciamento de sessão via **Supabase Auth**. Segurança garantida com **Row Level Security (RLS)**, onde cada usuário só tem acesso aos seus próprios dados.  
 
-  <h4>Plataforma de Deploy:</h4>
-    <ul>
-        <li><strong>Render</strong></li>
-    </ul>
-    
-  <hr>
+- **📝 Gestão de Tarefas (CRUD)**  
+  Criar, editar, excluir e marcar como concluídas.  
+  Cada tarefa possui **descrição, prazo, horário e cor personalizada**, permitindo controle avançado da rotina.  
 
-  <h3>Pré-requisitos</h3>
-    <ul>
-        <li>Node.js (versão 18 ou superior)</li>
-        <li><code>npm</code> ou <code>yarn</code></li>
-        <li>Uma conta no <a href="https://supabase.com/" target="_blank">Supabase</a> (o plano gratuito é suficiente)</li>
-    </ul>
+- **📂 Organização por Projetos**  
+  Separe suas tarefas em projetos (ex.: **Trabalho, Estudos, Pessoal**).  
+  É possível excluir projetos sem perder as tarefas, que voltam automaticamente para a **Caixa de Entrada**.  
 
-  <h3>1. Configure o Projeto Supabase</h3>
-    <ol>
-        <li><strong>Crie um novo projeto</strong> no seu painel do Supabase.</li>
-        <li><strong>Guarde as suas chaves de API:</strong>
-            <ul>
-                <li>Vá para <strong>Project Settings</strong> (ícone de engrenagem) > <strong>API</strong>.</li>
-                <li>Copie o <code>Project URL</code> e a chave <code>anon public</code>. Vamos precisar delas mais tarde.</li>
-            </ul>
-        </li>
-        <li><strong>Execute o SQL para criar as tabelas:</strong>
-            <p>Vá para o <strong>SQL Editor</strong> (ícone de <code>&lt;/&gt;</code>). Clique em "<strong>New query</strong>" e cole o código abaixo para criar a tabela <code>tableList</code>. Depois, clique em <strong>RUN</strong>.</p>
-  
-  <pre> <code>-- Criar a tabela de tarefas
-      
-                    CREATE TABLE public.tableList (
-                      id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-                      created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-                      title TEXT NOT NULL,
-                      description TEXT,
-                      completed BOOLEAN DEFAULT FALSE NOT NULL,
-                      date_check TIMESTAMPTZ,
-                      user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL
-                    );
+- **📅 Calendário Interativo**  
+  Visualize suas tarefas em **visões de Mês, Semana ou Dia** com o `react-big-calendar`.  
+  Clicar em um evento abre seus detalhes para edição rápida.  
 
--- Ativar a Row Level Security
-ALTER TABLE public.tableList ENABLE ROW LEVEL SECURITY;</code></pre>
-  <p>Crie outra "<strong>New query</strong>" e cole o código abaixo para criar a tabela <code>profiles</code>. Depois, clique em <strong>RUN</strong>.</p>
-   <pre><code>-- Criar a tabela de perfis
+- **📧 Notificações Automáticas por E-mail**  
+  Um *robô backend* (com **Supabase Functions** + **Make.com** + **Resend**) verifica as tarefas diariamente e envia lembretes automáticos por e-mail.  
+
+- **👤 Gestão de Perfil**  
+  O usuário pode alterar **nome, e-mail e senha** diretamente no painel de perfil.  
+
+- **🎨 Interface Moderna e Responsiva**  
+  - Tema **claro/escuro** dinâmico.  
+  - **Menu lateral inteligente** que se adapta a qualquer tela.  
+  - **Animações com Framer Motion** para transições suaves.  
+
+---
+
+## 🛠️ Stack Tecnológica  
+
+### Frontend  
+- ⚛️ **React + TypeScript**  
+- ⚡ **Vite** (build e dev server)  
+- 🔀 **React Router DOM** (roteamento de páginas)  
+- 🎨 **CSS Modules** + **Framer Motion** (UI moderna e animada)  
+- 📅 **react-big-calendar** (calendário dinâmico)  
+- 🖼️ **Lucide Icons** (ícones modernos e leves)  
+
+### Backend & Banco de Dados  
+- 🗄️ **Supabase**  
+  - PostgreSQL (armazenamento de dados)  
+  - Auth (autenticação e sessões)  
+  - Functions (lógicas de backend)  
+  - Row Level Security (RLS para segurança)  
+
+### Automação & Serviços  
+- 🤖 **Make.com** → Fluxos automatizados de verificação de tarefas  
+- 📧 **Resend** → Envio de e-mails transacionais  
+
+---
+
+## ⚙️ Estrutura do Banco de Dados  
+
+### Tabela `tableList` (Tarefas)
+```sql
+CREATE TABLE public.tableList (
+  id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+  created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT,
+  completed BOOLEAN DEFAULT FALSE NOT NULL,
+  date_check TIMESTAMPTZ,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL
+);
+
+ALTER TABLE public.tableList ENABLE ROW LEVEL SECURITY;
+Tabela profiles (Perfis de Usuários)
+sql
+Copiar código
 CREATE TABLE public.profiles (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   full_name TEXT,
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Ativar a Row Level Security
-ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;</code></pre>
-        </li>
-        <li><strong>Crie as Políticas de Segurança (RLS):</strong>
-            <p>Vá para <strong>Authentication</strong> > <strong>Policies</strong>. Crie as políticas para <code>tableList</code> e <code>profiles</code> (permitindo que os utilizadores apenas acedam aos seus próprios dados). Por exemplo: <code>(select auth.uid()) = user_id</code> para <code>tableList</code> e <code>(select auth.uid()) = id</code> para <code>profiles</code>.</p>
-        </li>
-        <li><strong>Crie o Trigger para Perfis Automáticos:</strong>
-            <p>No <strong>SQL Editor</strong>, execute a função e o trigger abaixo.</p>
-            <pre><code>-- 1. A Função
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+Função + Trigger para Criar Perfil Automático
+sql
+Copiar código
 create function public.create_public_profile_for_user()
 returns trigger 
 language plpgsql 
@@ -114,29 +99,57 @@ begin
 end;
 $$;
 
--- 2. O Trigger
 create trigger on_auth_user_created
   after insert on auth.users
-  for each row execute procedure public.create_public_profile_for_user();</code></pre>
-        </li>
-    </ol>
+  for each row execute procedure public.create_public_profile_for_user();
+```
 
-  <h3>2. Configure o Projeto Localmente</h3>
-    <ol>
-        <li><strong>Clone o repositório:</strong>
-            <pre><code>git clone [URL_DO_SEU_REPOSITORIO_AQUI]
-cd [NOME_DA_PASTA_DO_PROJETO]</code></pre>
-        </li>
-        <li><strong>Instale as dependências:</strong>
-            <pre><code>npm install</code></pre>
-        </li>
-        <li><strong>Configure as Variáveis de Ambiente:</strong>
-            <p>Crie um ficheiro chamado <code>.env.local</code> na raiz do projeto e adicione as chaves do Supabase:</p>
-            <pre><code>VITE_SUPABASE_URL=COLE_A_SUA_PROJECT_URL_AQUI
-VITE_SUPABASE_ANON_KEY=COLE_A_SUA_CHAVE_ANON_PUBLIC_AQUI</code></pre>
-        </li>
-        <li><strong>Rode o projeto:</strong>
-            <pre><code>npm run dev</code></pre>
-        </li>
-    </ol>
-    <p>Se tudo correu bem, ao aceder a <code>http://localhost:5173</code> no seu navegador, você deverá ver a página inicial da aplicação.</p>
+- **🚀 Como Rodar o Projeto Localmente**
+
+Pré-requisitos
+Node.js 18+
+
+npm ou yarn
+
+- **Conta gratuita no Supabase**
+
+    - Passo a Passo
+    - Clone o repositório
+
+    - git clone [URL_DO_SEU_REPOSITORIO]
+    - cd [NOME_DA_PASTA]
+- **Instale as dependências**
+
+
+    - npm install
+    - Configure as variáveis de ambiente
+    - Crie um arquivo .env.local na raiz do projeto e adicione:
+
+
+- **VITE_SUPABASE_URL=COLE_AQUI_O_PROJECT_URL**
+- **VITE_SUPABASE_ANON_KEY=COLE_AQUI_SUA_ANON_KEY**
+
+- **Rode o projeto em desenvolvimento**
+
+
+    - Copiar código
+    - npm run dev
+- **Acesse em:**
+    👉 http://localhost:5173
+
+- **💡 Aprendizados e Desafios**
+    - Implementação de RLS (Row Level Security) no Supabase para garantir que cada usuário só tenha acesso às suas próprias tarefas.
+
+    - Estruturação de funções SQL e triggers para automação de perfis de usuários.
+
+    - Integração de React + Supabase para sincronização em tempo real.
+
+    - Criação de um sistema de notificações automáticas com Make.com e Resend.
+
+    - Superação de problemas com deploy contínuo e integração de ambiente local via CLI do Supabase.
+
+    - Esse projeto não foi apenas código: foi uma imersão em arquitetura de software, automação e experiência do usuário.
+
+📄 Licença
+Este projeto é distribuído sob a licença MIT.
+
