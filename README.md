@@ -150,6 +150,6 @@ npm ou yarn
 
     - Esse projeto não foi apenas código: foi uma imersão em arquitetura de software, automação e experiência do usuário.
 
-📄 Licença
+📄 Licença 
 Este projeto é distribuído sob a licença MIT.
 
